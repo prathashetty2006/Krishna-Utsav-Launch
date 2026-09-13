@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRISHNA-UTSAV 2K26 — Cinematic Inauguration | Dr. B.B. Hegde College</title>
+  <meta name="description" content="Cinematic Inauguration and Sacred Gateway for Krishna-Utsav 2K26 at Dr. B.B. Hegde First Grade College, Kundapura.">
+  
+  <!-- Preconnect and Load Google Fonts: Cinzel & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="./style.css?v=bouncy2026">
+  <link rel="icon" href="../Image and Audio/images/peacock_feather.png" type="image/png">
+</head>
+<body>
+
+  <!-- Fullscreen 16:9 Stage Area -->
+  <main class="stage-wrapper" id="launch-stage">
+    
+    <!-- Canvas for Floating Gold Stardust & Divine Burst Particles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Corner Vedic Ornaments -->
+    <div class="corner-ornament top-left" aria-hidden="true"></div>
+    <div class="corner-ornament top-right" aria-hidden="true"></div>
+    <div class="corner-ornament bottom-left" aria-hidden="true"></div>
+    <div class="corner-ornament bottom-right" aria-hidden="true"></div>
+
+    <!-- Background Divine Rotating Mandala & Radiant Aura -->
+    <div class="mandala-backdrop" aria-hidden="true">
+      <img src="../Image and Audio/images/sacred_mandala.svg" alt="Sacred Mandala" class="mandala-img">
+    </div>
+    <div class="divine-aura-ring" aria-hidden="true"></div>
+
+    <!-- Discreet Floating Operator Toggle Button (Top Right) -->
+    <div class="top-operator-wrapper">
+      <button class="btn-icon-subtle" id="btn-toggle-operator" title="Auditorium Rehearsal / Operator Controls (Key: O)" aria-label="Open Rehearsal Controls">
+        ⚙
+      </button>
+    </div>
+
+    <!-- ================================================================
+         Center Stage: Ceremony Identity & Activation Core
+         ================================================================ -->
+    <section class="stage-center">
+      <!-- Divine Flute Graphic Motif -->
+      <img src="../Image and Audio/images/krishna_flute.png" alt="Sri Krishna Flute" class="hero-flute-motif">
+
+      <p class="event-supertitle">CULTURAL FESTIVAL INAUGURATION</p>
+      <h1 class="event-main-title">KRISHNA-UTSAV <span class="gold-accent">2K26</span></h1>
+      <p class="event-tagline">A Celebration of Devotion, Culture &amp; Technology</p>
+
+      <div class="event-venue-bar">
+        <span>🗓 16 September 2026</span>
+        <span>•</span>
+        <span>📍 Mookambika Auditorium, Kundapura</span>
+      </div>
+
+      <!-- Ceremonial Activation Trigger Zone -->
+      <div class="activation-section">
+        <div class="sacred-phrase-prompt">
+          <span class="prompt-text">SAY</span>
+          <span class="quote">“JAI SHREE KRISHNA”</span>
+          <span class="prompt-text">TO BEGIN</span>
+        </div>
+
+        <!-- Central Microphone Orb Trigger -->
+        <div class="mic-orb-wrapper">
+          <div class="mic-pulse-ring" aria-hidden="true"></div>
+          <button class="btn-mic-orb" id="btn-mic-toggle" aria-label="Activate voice recognition or listen">
+            <img src="../Image and Audio/images/krishna_tilak.svg" alt="Sri Krishna Tilak" class="tilak-orb-icon">
+          </button>
+        </div>
+
+        <!-- Real-time Sound Waveform Visualizer -->
+        <div class="waveform-container" id="mic-waveform" aria-hidden="true">
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+        </div>
+
+        <!-- Dynamic Status Indicator Pill -->
+        <div class="status-pill status-idle" id="mic-status-pill">
+          <span class="status-dot"></span>
+          <span id="mic-status-label">Microphone Ready — Tap or Press "M" to Listen</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         Footer: Stage Reliability & Operator Manual Fallback
+         ================================================================ -->
+    <footer class="stage-footer">
+      <div class="footer-auxiliary">
+        <span>Auditorium 16:9 Presentation Target</span>
+        <span>•</span>
+        <span>Hotkeys: <strong>[Space/Enter]</strong> Launch | <strong>[M]</strong> Mic | <strong>[O]</strong> Operator</span>
+      </div>
+
+      <!-- Discreet Manual Inauguration Button for Live Event Safety -->
+      <button class="btn-manual-ceremonial" id="btn-manual-launch" aria-label="Inaugurate festival manually without voice recognition">
+        <span class="diya-icon">🪔</span>
+        <span>INAUGURATE MANUALLY</span>
+      </button>
+    </footer>
+
+    <!-- ================================================================
+         Celebration Awakening & Sacred Reveal Screen Overlay
+         ================================================================ -->
+    <section id="celebration-reveal-overlay" aria-live="polite">
+      <div class="reveal-content-card">
+        <h2 class="sacred-phrase-large" id="sacred-phrase-display">
+          JAI SHREE KRISHNA
+        </h2>
+        <div class="event-identity-large" id="event-identity-display">
+          <h3 class="celebration-title">KRISHNA-UTSAV <span class="gold-accent">2K26</span></h3>
+          <p class="celebration-subtitle">✦ The Celebration Begins ✦</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full-screen Portal Light Curtain for Seamless Transition -->
+    <div id="portal-curtain" aria-hidden="true">
+      <img src="../Image and Audio/images/sacred_mandala.svg" alt="Loading Portal" class="portal-loading-mandala">
+      <div id="portal-status-text">Entering Krishna-Utsav Portal...</div>
+    </div>
+
+  </main>
+
+  <!-- ================================================================
+       Operator Drawer: Rehearsal & Live Stage Control Center
+       ================================================================ -->
+  <aside class="operator-drawer" id="operator-drawer" aria-label="Stage Operator Panel">
+    <div class="operator-drawer-header">
+      <span class="operator-title">AV Operator Panel</span>
+      <button class="btn-close-drawer" id="btn-close-operator" aria-label="Close Operator Drawer">✕</button>
+    </div>
+
+    <!-- Trigger Testing -->
+    <div class="operator-section">
+      <label class="operator-label">Live Event Simulation</label>
+      <button class="operator-btn" id="btn-simulate-voice">⚡ Simulate "Jai Shree Krishna"</button>
+      <button class="operator-btn" id="btn-test-audio">🎵 Test Devotional Flute / Sound</button>
+      <button class="operator-btn" id="btn-reset-state" style="background: rgba(201, 24, 43, 0.25); border-color: #c9182b;">🔄 Rehearsal Reset (Key: R)</button>
+    </div>
+
+    <!-- Audio Master Controls -->
+    <div class="operator-section">
+      <label class="operator-label">Auditorium Audio Level</label>
+      <input type="range" id="operator-volume-slider" min="0" max="1" step="0.05" value="0.85" style="width: 100%; margin-bottom: 0.6rem;">
+      <button class="operator-btn" id="btn-toggle-mute">🔊 Mute Sound</button>
+    </div>
+
+    <!-- Portal Destination Configuration -->
+    <div class="operator-section">
+      <label class="operator-label">Portal Destination URL</label>
+      <input type="text" class="operator-input" id="input-portal-url" value="./portal_showcase.html">
+      <small style="color: #a0b2cc; font-size: 0.75rem;">Configurable target link to transition into after inauguration.</small>
+    </div>
+
+    <!-- Hotkey Legend -->
+    <div class="operator-section">
+      <label class="operator-label">Auditorium Hotkeys</label>
+      <div class="hotkey-badge-list">
+        <div class="hotkey-row"><span>Ceremonial Launch:</span> <span class="badge-key">Space / Enter</span></div>
+        <div class="hotkey-row"><span>Microphone Toggle:</span> <span class="badge-key">M</span></div>
+        <div class="hotkey-row"><span>Operator Drawer:</span> <span class="badge-key">O</span></div>
+        <div class="hotkey-row"><span>Dry-Run Reset:</span> <span class="badge-key">R</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ES6+ Module Controller -->
+  <script type="module" src="../Java Script/launch.js?v=bouncy2026"></script>
+</body>
+</html>

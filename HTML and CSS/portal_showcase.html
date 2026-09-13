@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="https://krishna-utsav-2026.vercel.app/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Krishna Utsav Portal | Krishna Janmashtami 2026</title>
+    <meta name="description"
+        content="Official Krishna Janmashtami Event Portal for Dr BB Hegde First Grade College. Join cultural competitions, devotional events, and celebrations.">
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="Image and Audio/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Image and Audio/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="Image and Audio/apple-touch-icon.png">
+
+    <!-- Google Fonts (Poppins & Cinzel for spiritual touch) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="HTML and CSS/index.css">
+
+    <!-- JS -->
+    <script src="Java Script/index.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Decorative Corner Ornaments -->
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+
+    <!-- Reading Progress Bar -->
+    <div id="scrollProgress" class="scroll-progress"></div>
+
+    <!-- Full-Page Divine Background Wallpaper -->
+    <div class="global-page-bg" aria-hidden="true">
+        <img src="Image and Audio/vrindavan-bg.jpeg" alt="Divine Vrindavan Background Wallpaper">
+    </div>
+
+    <!-- Global Floating Background Elements: Divine Peacock Feathers -->
+    <img src="Image and Audio/peacock-feather.png" class="bg-peacock-feather-1" alt="Peacock Feather Left">
+    <img src="Image and Audio/peacock-feather.png" class="bg-peacock-feather-2" alt="Peacock Feather Right">
+
+
+    <!-- Audio Ambient Player -->
+    <audio id="bgMusic" loop preload="auto" autoplay>
+        <source src="Image and Audio/krishna_flute.mp3" type="audio/mpeg">
+        <source src="https://krishna-utsav-2026.vercel.app/Image%20and%20Audio/krishna_flute.mp3" type="audio/mpeg">
+        <source src="../Image and Audio/audio/krishna_flute.mp3" type="audio/mpeg">
+    </audio>
+
+    <!--=================================================
+                    HEADER / NAVBAR
+==================================================-->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#home" class="logo">
+                <div class="logo-icon-wrap">
+                    <img src="Image and Audio/college-logo.png" alt="College Logo">
+                </div>
+                <div>
+                    <h2>Krishna Utsav</h2>
+                    <span>Dr.B.B.Hegde First Grade College,Kundapura</span>
+                </div>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="menu-btn" aria-label="Toggle Navigation Menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!--=================================================
+                    HERO SECTION
+==================================================-->
+    <section class="hero" id="home">
+        <div class="mandala"></div>
+        <div class="spiritual-glow-bg"></div>
+        <div class="light-rays"></div>
+
+
+
+        <div class="hero-content">
+            <p class="college-name">
+                <i class="fa-solid fa-om gold-icon"></i> Dr.B.B.Hegde First Grade College Presents
+            </p>
+
+            <h1>
+                Krishna Janmashtami <span class="gold-year">2K26</span>
+            </h1>
+
+            <h3>
+                Celebrating Unity, Culture, and Devotion
+            </h3>
+
+            <p class="hero-description">
+                "We extend a cordial welcome to the official Krishna Utsav Portal.
+                We warmly invite you to partake in our cultural competitions,
+                devotional ceremonies, and artistic exhibitions,
+                as we collectively commemorate the divine spirit of Lord Krishna."
+            </p>
+
+            <div class="hero-actions">
+                <a href="#events" class="primary-btn">
+                    <span>Explore Events</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <div class="divine-halo"></div>
+            <div class="divine-halo-outer"></div>
+            <div class="divine-halo-inner"></div>
+            <div class="divine-aura"></div>
+            <div class="divine-aura-inner"></div>
+            <img src="Image and Audio/krishna-hero.png" alt="Lord Krishna" class="krishna-img">
+        </div>
+    </section>
+
+    <!-- Spiritual Divider -->
+    <div class="spiritual-divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon"><i class="fa-solid fa-feather-pointed"></i></span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!--=================================================
+                ACCESS PORTAL MODAL
+==================================================-->
+    <div class="portal-modal" id="portalModal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">
+                &times;
+            </button>
+
+            <div class="modal-header-badge">
+                <i class="fa-solid fa-place-of-worship"></i>
+            </div>
+
+            <h2>Krishna Utsav Portal</h2>
+            <p>Select your portal access mode</p>
+        </div>
+    </div>
+
+    <!--=================================================
+                    ABOUT SECTION
+==================================================-->
+    <section class="about reveal" id="about">
+        <div class="section-title">
+            <span class="sub-heading">Sacred Tradition</span>
+            <h2>About Krishna Janmashtami</h2>
+            <div class="gold-underline"></div>
+        </div>
+
+        <div class="about-container">
+            <div class="about-image reveal-left">
+                <div class="krishna-darshan-card">
+                    <div class="krishna-darshan-header">
+                        <div class="krishna-darshan-title">
+                            <i class="fa-solid fa-om gold-icon"></i>
+                            <span>Divine Darshan</span>
+                        </div>
+                        <span class="darshan-counter" id="darshanCounter">1 / 11</span>
+                    </div>
+
+                    <div class="krishna-slider-container" id="krishnaSliderContainer">
+                        <div class="krishna-slider-track" id="krishnaSliderTrack">
+                            <div class="krishna-slide" data-index="1">
+                                <img src="Image and Audio/Krishna/krishna-1.jpeg" alt="Lord Krishna Darshan 1"
+                                    loading="eager">
+                            </div>
+                            <div class="krishna-slide" data-index="2">
+                                <img src="Image and Audio/Krishna/krishna-2.jpeg" alt="Lord Krishna Darshan 2"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="3">
+                                <img src="Image and Audio/Krishna/krishna-3.jpeg" alt="Lord Krishna Darshan 3"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="4">
+                                <img src="Image and Audio/Krishna/krishna-4.jpeg" alt="Lord Krishna Darshan 4"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="5">
+                                <img src="Image and Audio/Krishna/krishna-5.jpeg" alt="Lord Krishna Darshan 5"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="6">
+                                <img src="Image and Audio/Krishna/krishna-6.jpeg" alt="Lord Krishna Darshan 6"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="7">
+                                <img src="Image and Audio/Krishna/krishna-7.jpeg" alt="Lord Krishna Darshan 7"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="8">
+                                <img src="Image and Audio/Krishna/krishna-8.jpeg" alt="Lord Krishna Darshan 8"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="9">
+                                <img src="Image and Audio/Krishna/krishna-9.jpeg" alt="Lord Krishna Darshan 9"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="10">
+                                <img src="Image and Audio/Krishna/krishna-10.jpeg" alt="Lord Krishna Darshan 10"
+                                    loading="lazy">
+                            </div>
+                            <div class="krishna-slide" data-index="11">
+                                <img src="Image and Audio/Krishna/krishna-11.jpeg" alt="Lord Krishna Darshan 11"
+                                    loading="lazy">
+                            </div>
+                            <!-- Seamless infinite loop clone -->
+                            <div class="krishna-slide" data-index="1-clone" aria-hidden="true">
+                                <img src="Image and Audio/Krishna/krishna-1.jpeg" alt="Lord Krishna Darshan 1"
+                                    loading="lazy">
+                            </div>
+                        </div>
+
+                        <!-- 3-second countdown timer bar -->
+                        <div class="krishna-timer-progress">
+                            <div class="krishna-timer-bar" id="krishnaTimerBar"></div>
+                        </div>
+
+                        <!-- Navigation Arrows -->
+                        <button class="krishna-nav-btn prev" id="krishnaPrev" aria-label="Previous Darshan">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="krishna-nav-btn next" id="krishnaNext" aria-label="Next Darshan">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- 11 Pagination Navigation Dots -->
+                    <div class="krishna-dots-container" id="krishnaDots"></div>
+                </div>
+            </div>
+
+            <div class="about-content reveal-right">
+                <div class="quote-badge">
+                    <i class="fa-solid fa-quote-left"></i>
+                </div>
+                <p>
+                    "Krishna Janmashtami commemorates the advent of Lord Krishna, who epitomizes the virtues of
+                    righteousness, wisdom, compassion, and devotion. Our institution’s annual observance unites
+                    students, faculty, and staff through a curated series of cultural performances, competitive events,
+                    and traditional festivities."
+                </p>
+                <div class="about-stats">
+                    <div class="stat-card reveal-scale">
+                        <span class="stat-num">6</span>
+                        <span class="stat-label">Competitions</span>
+                    </div>
+                    <div class="stat-card reveal-scale">
+                        <span class="stat-num">100+</span>
+                        <span class="stat-label">Participants</span>
+                    </div>
+                    <div class="stat-card reveal-scale">
+                        <span class="stat-num">100%</span>
+                        <span class="stat-label">Devotional Spirit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spiritual Divider -->
+    <div class="spiritual-divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon"><i class="fa-solid fa-om"></i></span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!--=================================================
+                COMPETITIONS SECTION
+==================================================-->
+    <section class="events reveal" id="events">
+        <div class="section-title">
+            <span class="sub-heading">Showcase Talent</span>
+            <h2>Competition Categories</h2>
+            <div class="gold-underline"></div>
+        </div>
+
+        <div class="carousel-container" id="eventsCarousel">
+            <button class="carousel-ctrl-btn prev" aria-label="Previous Events"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <div class="carousel-viewport">
+                <div id="eventContainer" class="slider-track">
+                    <!-- 1. Rangoli -->
+                    <div class="event-card">
+                        <div style="margin-bottom: 12px;">
+                            <strong
+                                style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(198,161,91,0.12); color: var(--secondary); text-transform: uppercase;"><i
+                                    class="fa-solid fa-shapes" style="margin-right: 4px;"></i> Traditional
+                                Art</strong>
+                        </div>
+                        <h3
+                            style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--primary); margin-bottom: 8px;">
+                            Rangoli</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                            Vibrant Rangoli designs incorporating peacocks, flutes, and traditional spiritual motifs.
+                        </p>
+                        <div
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 6px 12px; background: rgba(198,161,91,0.1); border-left: 3px solid var(--secondary); border-radius: 4px;">
+                            <i class="fa-solid fa-user-tie" style="color: var(--secondary); font-size: 11px;"></i>
+                            <span
+                                style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Coordinator:</span>
+                            <strong style="font-size: 11.5px; color: var(--primary);">Mrs. Nirmala</strong>
+                        </div>
+                        <div class="event-meta-box">
+                            <div class="event-meta-row">
+                                <span class="event-venue-tag"><i class="fa-solid fa-location-dot"></i> Auditorium</span>
+                                <span class="event-date-badge"><i class="fa-regular fa-calendar-days"></i>
+                                    10-09-2026</span>
+                            </div>
+                            <div class="event-time-tag">
+                                <i class="fa-regular fa-clock"></i> 9:30 AM
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Bhagavadgeethe Shloka Patana -->
+                    <div class="event-card">
+                        <div style="margin-bottom: 12px;">
+                            <strong
+                                style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(198,161,91,0.12); color: var(--secondary); text-transform: uppercase;"><i
+                                    class="fa-solid fa-scroll" style="margin-right: 4px;"></i> Shloka
+                                Chanting</strong>
+                        </div>
+                        <h3
+                            style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--primary); margin-bottom: 8px;">
+                            Bhagavadgeethe Shloka Patana</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                            Sacred shloka recitation and philosophical chanting competition from the divine Srimad
+                            Bhagavad Gita.</p>
+                        <div
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 6px 12px; background: rgba(198,161,91,0.1); border-left: 3px solid var(--secondary); border-radius: 4px;">
+                            <i class="fa-solid fa-user-tie" style="color: var(--secondary); font-size: 11px;"></i>
+                            <span
+                                style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Coordinator:</span>
+                            <strong style="font-size: 11.5px; color: var(--primary);">Mrs. Wilma</strong>
+                        </div>
+                        <div class="event-meta-box">
+                            <div class="event-meta-row">
+                                <span class="event-venue-tag"><i class="fa-solid fa-location-dot"></i> AV Hall</span>
+                                <span class="event-date-badge"><i class="fa-regular fa-calendar-days"></i>
+                                    10-09-2026</span>
+                            </div>
+                            <div class="event-time-tag">
+                                <i class="fa-regular fa-clock"></i> 3:00 PM
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Kathavachana -->
+                    <div class="event-card">
+                        <div style="margin-bottom: 12px;">
+                            <strong
+                                style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(198,161,91,0.12); color: var(--secondary); text-transform: uppercase;"><i
+                                    class="fa-solid fa-book-open-reader" style="margin-right: 4px;"></i> Spiritual
+                                Storytelling</strong>
+                        </div>
+                        <h3
+                            style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--primary); margin-bottom: 8px;">
+                            Kathavachana</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                            Traditional narrative storytelling and discourse celebrating Sri Krishna Leela and timeless
+                            epics.</p>
+                        <div
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 6px 12px; background: rgba(198,161,91,0.1); border-left: 3px solid var(--secondary); border-radius: 4px;">
+                            <i class="fa-solid fa-user-tie" style="color: var(--secondary); font-size: 11px;"></i>
+                            <span
+                                style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Coordinator:</span>
+                            <strong style="font-size: 11.5px; color: var(--primary);">Mrs. Vijayashree</strong>
+                        </div>
+                        <div class="event-meta-box">
+                            <div class="event-meta-row">
+                                <span class="event-venue-tag"><i class="fa-solid fa-location-dot"></i> AV Hall</span>
+                                <span class="event-date-badge"><i class="fa-regular fa-calendar-days"></i>
+                                    11-09-2026</span>
+                            </div>
+                            <div class="event-time-tag">
+                                <i class="fa-regular fa-clock"></i> 3:00 PM
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Bhajana Sparde -->
+                    <div class="event-card">
+                        <div style="margin-bottom: 12px;">
+                            <strong
+                                style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(198,161,91,0.12); color: var(--secondary); text-transform: uppercase;"><i
+                                    class="fa-solid fa-music" style="margin-right: 4px;"></i> Music &
+                                Devotion</strong>
+                        </div>
+                        <h3
+                            style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--primary); margin-bottom: 8px;">
+                            Bhajana Sparde</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                            Solo and group devotional singing honoring Lord Krishna's divine life.</p>
+                        <div
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 6px 12px; background: rgba(198,161,91,0.1); border-left: 3px solid var(--secondary); border-radius: 4px;">
+                            <i class="fa-solid fa-user-tie" style="color: var(--secondary); font-size: 11px;"></i>
+                            <span
+                                style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Coordinator:</span>
+                            <strong style="font-size: 11.5px; color: var(--primary);">Mr.Giriraj Bhat</strong>
+                        </div>
+                        <div class="event-meta-box">
+                            <div class="event-meta-row">
+                                <span class="event-venue-tag"><i class="fa-solid fa-location-dot"></i> AV Hall</span>
+                                <span class="event-date-badge"><i class="fa-regular fa-calendar-days"></i>
+                                    15-09-2026</span>
+                            </div>
+                            <div class="event-time-tag">
+                                <i class="fa-regular fa-clock"></i> 3:00 PM
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Chitra Kala Auction -->
+                    <div class="event-card">
+                        <div style="margin-bottom: 12px;">
+                            <strong
+                                style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(198,161,91,0.12); color: var(--secondary); text-transform: uppercase;"><i
+                                    class="fa-solid fa-paintbrush" style="margin-right: 4px;"></i> Handmade Art &
+                                Auction</strong>
+                        </div>
+                        <h3
+                            style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--primary); margin-bottom: 8px;">
+                            Chitra Kala Auction</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                            Exhibition of 25+ exclusive handmade spiritual sketches. Each class must acquire at least
+                            one artwork via classroom bidding.</p>
+                        <div
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 6px 12px; background: rgba(198,161,91,0.1); border-left: 3px solid var(--secondary); border-radius: 4px;">
+                            <i class="fa-solid fa-gavel" style="color: var(--secondary); font-size: 11px;"></i>
+                            <span style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Bidding
+                                Limit:</span>
+                            <strong style="font-size: 11.5px; color: var(--primary);">₹100 (Min) – ₹1,000 (Max)</strong>
+                        </div>
+                        <div class="event-meta-box">
+                            <div class="event-meta-row">
+                                <span class="event-venue-tag"><i class="fa-solid fa-location-dot"></i> Main
+                                    Courtyard</span>
+                                <span class="event-date-badge"><i class="fa-regular fa-calendar-days"></i>
+                                    16-09-2026</span>
+                            </div>
+                            <div class="event-time-tag">
+                                <i class="fa-solid fa-sun"></i> Morning Session (10:00 AM)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Mosaru Kudike (Grand Finale) -->
+                    <div class="event-card">
+                        <div style="margin-bottom: 12px;">
+                            <strong
+                                style="font-size: 11px; padding: 4px 10px; border-radius: 12px; background: rgba(198,161,91,0.12); color: var(--secondary); text-transform: uppercase;"><i
+                                    class="fa-solid fa-crown" style="margin-right: 4px;"></i> Youth Celebration</strong>
+                        </div>
+                        <h3
+                            style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--primary); margin-bottom: 8px;">
+                            Mosaru Kudike</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+                            Traditional pot decoration contest followed by the spirited festive Dahi Handi pot-breaking
+                            celebration.</p>
+                        <div
+                            style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 6px 12px; background: rgba(198,161,91,0.1); border-left: 3px solid var(--secondary); border-radius: 4px;">
+                            <i class="fa-solid fa-users" style="color: var(--secondary); font-size: 11px;"></i>
+                            <span
+                                style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Coordinators:</span>
+                            <strong style="font-size: 11.5px; color: var(--primary);">Mr. Pranam,
+                                Mr.Shreekanth</strong>
+                        </div>
+                        <div class="event-meta-box">
+                            <div class="event-meta-row">
+                                <span class="event-venue-tag"><i class="fa-solid fa-location-dot"></i> Main
+                                    Courtyard</span>
+                                <span class="event-date-badge"><i class="fa-regular fa-calendar-days"></i>
+                                    16-09-2026</span>
+                            </div>
+                            <div class="event-time-tag">
+                                <i class="fa-solid fa-flag-checkered"></i> Grand Finale Celebration
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-ctrl-btn next" aria-label="Next Events"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Spiritual Divider -->
+    <div class="spiritual-divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon"><i class="fa-solid fa-dharmachakra"></i></span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!--=================================================
+                    TIMELINE SECTION
+==================================================-->
+    <section class="timeline reveal" id="schedule">
+        <div class="section-title">
+            <span class="sub-heading">Event Schedule</span>
+            <h2>Event Timeline</h2>
+            <div class="gold-underline"></div>
+        </div>
+
+        <div class="carousel-container" id="timelineCarousel">
+            <button class="carousel-ctrl-btn prev" aria-label="Previous Schedule"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <div class="carousel-viewport">
+                <div id="timelineContainer" class="slider-track">
+                    <div class="timeline-item reveal-scale">
+                        <div class="timeline-dot"><i class="fa-solid fa-shapes"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-venue-badge"><i class="fa-solid fa-location-dot"></i>
+                                Auditorium</span>
+                            <h4>10-09-2026 • 9:30 AM</h4>
+                            <h3>Rangoli</h3>
+                            <p>Vibrant Rangoli designs incorporating peacocks, flutes, and traditional spiritual motifs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal-scale">
+                        <div class="timeline-dot"><i class="fa-solid fa-scroll"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-venue-badge"><i class="fa-solid fa-location-dot"></i> AV Hall</span>
+                            <h4>10-09-2026 • 3:00 PM</h4>
+                            <h3>Bhagavadgeethe Shloka Patana</h3>
+                            <p>Sacred recitation and philosophical chanting of the divine shlokas from Srimad Bhagavad
+                                Gita.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal-scale">
+                        <div class="timeline-dot"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-venue-badge"><i class="fa-solid fa-location-dot"></i> AV Hall</span>
+                            <h4>11-09-2026 • 3:00 PM</h4>
+                            <h3>Kathavachana</h3>
+                            <p>Traditional narrative storytelling and spiritual discourse celebrating Sri Krishna Leela.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal-scale">
+                        <div class="timeline-dot"><i class="fa-solid fa-music"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-venue-badge"><i class="fa-solid fa-location-dot"></i> AV Hall</span>
+                            <h4>15-09-2026 • 3:00 PM</h4>
+                            <h3>Bhajana Sparde</h3>
+                            <p>Solo and group devotional singing honoring Lord Krishna with traditional instruments and
+                                bhakti.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal-scale">
+                        <div class="timeline-dot"><i class="fa-solid fa-paintbrush"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-venue-badge"><i class="fa-solid fa-location-dot"></i> Main
+                                Courtyard</span>
+                            <h4>16-09-2026 • 10:00 AM (Morning)</h4>
+                            <h3>Chitra Kala Auction</h3>
+                            <p>Grand exhibition of 25+ handmade spiritual sketches with mandatory classroom bidding
+                                (₹100 to ₹1,000 limit).</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal-scale">
+                        <div class="timeline-dot"><i class="fa-solid fa-crown"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-venue-badge"><i class="fa-solid fa-location-dot"></i>
+                                Main Courtyard</span>
+                            <h4>16-09-2026 • Grand Finale</h4>
+                            <h3>Mosaru Kudike</h3>
+                            <p>Traditional pot decoration, energetic human pyramids, and grand Dahi Handi celebration.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-ctrl-btn next" aria-label="Next Schedule"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Spiritual Divider -->
+    <div class="spiritual-divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon"><i class="fa-solid fa-images"></i></span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!--=================================================
+                    GALLERY SECTION
+==================================================-->
+    <section class="gallery reveal" id="gallery">
+        <div class="section-title">
+            <span class="sub-heading">Memories</span>
+            <h2>Celebration Gallery</h2>
+            <div class="gold-underline"></div>
+        </div>
+
+        <div class="carousel-container" id="galleryCarousel">
+            <button class="carousel-ctrl-btn prev" aria-label="Previous Media"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <div class="carousel-viewport">
+                <div id="galleryContainer" class="slider-track">
+                    <div class="gallery-card reveal-scale">
+                        <img src="Image and Audio/gallery-inauguration.jpeg"
+                            alt="Inaugural Lamp Lighting & Dignitaries" loading="lazy">
+                        <div class="gallery-card-overlay">
+                            <span class="gallery-card-tag"><i class="fa-solid fa-om"></i> Inauguration</span>
+                            <h4>Lamp Lighting Ceremony</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-card reveal-scale">
+                        <img src="Image and Audio/gallery-flute-performance.jpeg"
+                            alt="Classical Flute & Devotional Musical Performance" loading="lazy">
+                        <div class="gallery-card-overlay">
+                            <span class="gallery-card-tag"><i class="fa-solid fa-music"></i> Devotional Music</span>
+                            <h4>Classical Flute Ensemble</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-card reveal-scale">
+                        <img src="Image and Audio/gallery-spiritual-discourse.jpeg"
+                            alt="Spiritual Discourse & Keynote Address" loading="lazy">
+                        <div class="gallery-card-overlay">
+                            <span class="gallery-card-tag"><i class="fa-solid fa-book-open"></i> Kathavachana</span>
+                            <h4>Spiritual Discourse</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-card reveal-scale">
+                        <img src="Image and Audio/gallery-presidential-address.jpeg"
+                            alt="Presidential Address by College Dignitaries" loading="lazy">
+                        <div class="gallery-card-overlay">
+                            <span class="gallery-card-tag"><i class="fa-solid fa-graduation-cap"></i> Address</span>
+                            <h4>Guest Remarks</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-ctrl-btn next" aria-label="Next Media"><i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Spiritual Divider -->
+    <div class="spiritual-divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon"><i class="fa-solid fa-hands-praying"></i></span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!--=================================================
+                    CONTACT SECTION
+==================================================-->
+    <section class="contact reveal" id="contact">
+        <div class="section-title">
+            <span class="sub-heading">Get In Touch</span>
+            <h2>Contact & Venue</h2>
+            <div class="gold-underline"></div>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-card reveal-scale">
+                <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <h4>Location</h4>
+                <p>Dr.B.B.Hegde First Grade College, Kundapura</p>
+            </div>
+
+            <div class="contact-card reveal-scale">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <h4>Email</h4>
+                <p>event@bbhegdecollege.edu</p>
+            </div>
+
+            <div class="contact-card reveal-scale">
+                <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                <h4>Phone</h4>
+                <p>+91 9731013397</p>
+            </div>
+        </div>
+    </section>
+
+    <!--=================================================
+                    FOOTER
+==================================================-->
+    <footer>
+        <div class="footer-mandala-bg"></div>
+        <div class="footer-content">
+            <h2>KRISHNA UTSAV 2K26</h2>
+            <p class="college-sub">Dr. B.B. Hegde First Grade College, Kundapura</p>
+            <div class="footer-divider">
+                <span class="line"></span>
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span class="line"></span>
+            </div>
+            <p class="copyright">
+                © 2026 Krishna Utsav Portal | Department of Computer Applications & Student Welfare Council
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top Button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+
+<!-- Background Audio Autoplay Engine & Smooth Auditorium Auto-Scroll Showcase -->
+<script>
+(function() {
+  // 1. Automatic Background Song Playback Engine
+  const music = document.getElementById("bgMusic");
+  if (music) {
+    music.volume = 0.9;
+
+    function playBgMusic() {
+      const p = music.play();
+      if (p !== undefined) {
+        p.then(() => {
+          console.log("Background song started automatically.");
+        }).catch(err => {
+          console.log("Autoplay waiting for initial interaction:", err.message);
+        });
+      }
+    }
+
+    // Try immediately when page is opening
+    playBgMusic();
+    document.addEventListener("DOMContentLoaded", playBgMusic);
+    window.addEventListener("load", playBgMusic);
+
+    // Fallback: start immediately on any user action (mouse move, click, key, touch, scroll)
+    const gestureEvents = ["click", "keydown", "touchstart", "mousemove", "wheel", "scroll"];
+    function onUserGesture() {
+      playBgMusic();
+      if (!music.paused) {
+        gestureEvents.forEach(evt => window.removeEventListener(evt, onUserGesture));
+      }
+    }
+    gestureEvents.forEach(evt => window.addEventListener(evt, onUserGesture, { passive: true }));
+  }
+
+  // 2. Smooth Auditorium Auto-Scroll Engine
+  let isPaused = false;
+  let isAtBottom = false;
+  let scrollSpeed = 1.1; // Smooth presentation speed in px/frame
+  let userScrollTimeout = null;
+
+  function autoScrollLoop() {
+    if (!isPaused && !isAtBottom) {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (window.scrollY + scrollSpeed >= maxScroll - 2) {
+        window.scrollTo({ top: maxScroll, behavior: 'auto' });
+        isAtBottom = true;
+        
+        // Pause at bottom for 4.5 seconds for audience to view footer/contact
+        setTimeout(() => {
+          // Smoothly scroll back to top over 2.5 seconds
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // Wait at top for 2 seconds then resume downward scroll
+          setTimeout(() => {
+            isAtBottom = false;
+          }, 2500);
+        }, 4500);
+      } else {
+        window.scrollBy(0, scrollSpeed);
+      }
+    }
+    requestAnimationFrame(autoScrollLoop);
+  }
+
+  // Allow manual pause/resume via Spacebar
+  window.addEventListener('keydown', function(e) {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      isPaused = !isPaused;
+    }
+  });
+
+  // When user manually scrolls with wheel or touch, temporarily pause auto-scroll for 3.5s
+  window.addEventListener('wheel', function() {
+    isPaused = true;
+    clearTimeout(userScrollTimeout);
+    userScrollTimeout = setTimeout(function() {
+      isPaused = false;
+    }, 3500);
+  }, { passive: true });
+
+  window.addEventListener('touchstart', function() {
+    isPaused = true;
+    clearTimeout(userScrollTimeout);
+    userScrollTimeout = setTimeout(function() {
+      isPaused = false;
+    }, 3500);
+  }, { passive: true });
+
+  // Start auto-scroll after initial 2s pause to showcase Hero header
+  setTimeout(function() {
+    requestAnimationFrame(autoScrollLoop);
+  }, 2000);
+})();
+</script>
+
+</body>
+
+</html>

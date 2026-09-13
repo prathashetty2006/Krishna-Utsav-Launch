@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <!-- Golden Gradients -->
+    <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5BD"/>
+      <stop offset="35%" stop-color="#F5C542"/>
+      <stop offset="70%" stop-color="#D49B18"/>
+      <stop offset="100%" stop-color="#8C5E00"/>
+    </linearGradient>
+
+    <radialGradient id="goldAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(255, 215, 0, 0.25)"/>
+      <stop offset="60%" stop-color="rgba(212, 175, 55, 0.08)"/>
+      <stop offset="100%" stop-color="rgba(212, 175, 55, 0)"/>
+    </radialGradient>
+
+    <!-- 1 Petal Definition for outer 16 petals -->
+    <path id="petal16" d="M 500,160 C 460,260 440,360 500,420 C 560,360 540,260 500,160 Z" fill="none" stroke="url(#goldGrad1)" stroke-width="1.8"/>
+    <path id="petalInnerVein" d="M 500,160 Q 500,300 500,420" fill="none" stroke="url(#goldGrad1)" stroke-width="1" stroke-dasharray="4,4"/>
+
+    <!-- 1 Petal Definition for inner 8 petals -->
+    <path id="petal8" d="M 500,280 C 465,340 455,420 500,460 C 545,420 535,340 500,280 Z" fill="none" stroke="url(#goldGrad1)" stroke-width="2"/>
+
+    <!-- 1 Outer Ray / Triangle -->
+    <polygon id="outerRay" points="500,55 512,110 488,110" fill="none" stroke="url(#goldGrad1)" stroke-width="1.5"/>
+    <circle id="rayDot" cx="500" cy="45" r="3.5" fill="#FFE066"/>
+  </defs>
+
+  <!-- Background Soft Golden Radial Glow -->
+  <circle cx="500" cy="500" r="480" fill="url(#goldAura)"/>
+
+  <!-- Outer Concentric Rings -->
+  <circle cx="500" cy="500" r="475" fill="none" stroke="url(#goldGrad1)" stroke-width="2.5"/>
+  <circle cx="500" cy="500" r="462" fill="none" stroke="url(#goldGrad1)" stroke-width="1" stroke-dasharray="3,6"/>
+  <circle cx="500" cy="500" r="445" fill="none" stroke="url(#goldGrad1)" stroke-width="1.5"/>
+  <circle cx="500" cy="500" r="390" fill="none" stroke="url(#goldGrad1)" stroke-width="2"/>
+  <circle cx="500" cy="500" r="340" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <circle cx="500" cy="500" r="220" fill="none" stroke="url(#goldGrad1)" stroke-width="2"/>
+  <circle cx="500" cy="500" r="150" fill="none" stroke="url(#goldGrad1)" stroke-width="1.5"/>
+  <circle cx="500" cy="500" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="2.5"/>
+  <circle cx="500" cy="500" r="25" fill="url(#goldGrad1)"/>
+
+  <!-- 32 Outer Rays with Dots -->
+  <g id="outerRaysGroup">
+    <use href="#outerRay" transform="rotate(0 500 500)"/>
+    <use href="#rayDot" transform="rotate(0 500 500)"/>
+    <use href="#outerRay" transform="rotate(11.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(11.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(22.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(22.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(33.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(33.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(45 500 500)"/>
+    <use href="#rayDot" transform="rotate(45 500 500)"/>
+    <use href="#outerRay" transform="rotate(56.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(56.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(67.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(67.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(78.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(78.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(90 500 500)"/>
+    <use href="#rayDot" transform="rotate(90 500 500)"/>
+    <use href="#outerRay" transform="rotate(101.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(101.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(112.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(112.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(123.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(123.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(135 500 500)"/>
+    <use href="#rayDot" transform="rotate(135 500 500)"/>
+    <use href="#outerRay" transform="rotate(146.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(146.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(157.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(157.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(168.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(168.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(180 500 500)"/>
+    <use href="#rayDot" transform="rotate(180 500 500)"/>
+    <use href="#outerRay" transform="rotate(191.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(191.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(202.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(202.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(213.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(213.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(225 500 500)"/>
+    <use href="#rayDot" transform="rotate(225 500 500)"/>
+    <use href="#outerRay" transform="rotate(236.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(236.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(247.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(247.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(258.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(258.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(270 500 500)"/>
+    <use href="#rayDot" transform="rotate(270 500 500)"/>
+    <use href="#outerRay" transform="rotate(281.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(281.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(292.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(292.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(303.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(303.75 500 500)"/>
+    <use href="#outerRay" transform="rotate(315 500 500)"/>
+    <use href="#rayDot" transform="rotate(315 500 500)"/>
+    <use href="#outerRay" transform="rotate(326.25 500 500)"/>
+    <use href="#rayDot" transform="rotate(326.25 500 500)"/>
+    <use href="#outerRay" transform="rotate(337.5 500 500)"/>
+    <use href="#rayDot" transform="rotate(337.5 500 500)"/>
+    <use href="#outerRay" transform="rotate(348.75 500 500)"/>
+    <use href="#rayDot" transform="rotate(348.75 500 500)"/>
+  </g>
+
+  <!-- 16 Outer Sacred Lotus Petals with Inner Veins -->
+  <g id="petals16Group">
+    <g transform="rotate(0 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(22.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(45 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(67.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(90 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(112.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(135 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(157.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(180 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(202.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(225 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(247.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(270 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(292.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(315 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+    <g transform="rotate(337.5 500 500)"><use href="#petal16"/><use href="#petalInnerVein"/></g>
+  </g>
+
+  <!-- 8 Inner Sacred Petals -->
+  <g id="petals8Group">
+    <use href="#petal8" transform="rotate(0 500 500)"/>
+    <use href="#petal8" transform="rotate(45 500 500)"/>
+    <use href="#petal8" transform="rotate(90 500 500)"/>
+    <use href="#petal8" transform="rotate(135 500 500)"/>
+    <use href="#petal8" transform="rotate(180 500 500)"/>
+    <use href="#petal8" transform="rotate(225 500 500)"/>
+    <use href="#petal8" transform="rotate(270 500 500)"/>
+    <use href="#petal8" transform="rotate(315 500 500)"/>
+  </g>
+
+  <!-- Interlacing Arcs / Flower of Life Geometry in Center -->
+  <g opacity="0.85">
+    <circle cx="500" cy="430" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="500" cy="570" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="430" cy="500" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="570" cy="500" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="450" cy="450" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="550" cy="450" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="450" cy="550" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+    <circle cx="550" cy="550" r="70" fill="none" stroke="url(#goldGrad1)" stroke-width="1.2"/>
+  </g>
+</svg>

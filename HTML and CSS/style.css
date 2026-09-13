@@ -1,0 +1,839 @@
+/* ==========================================================================
+   KRISHNA-UTSAV 2K26 — CINEMATIC LAUNCH WEBSITE
+   Color Theme: Deep Cosmic Midnight Navy, Radiant Temple Gold & Celestial Starlight
+   Exact Visual Replica of Official Auditorium Launch Stage
+   ========================================================================== */
+
+:root {
+  /* Cosmic Midnight & Celestial Navy Palette */
+  --bg-color: #030b18;          /* Deepest Obsidian Midnight Blue */
+  --bg-space-dark: #01060f;     /* Outer Space Void */
+  --bg-space-radial: #0a254d;   /* Celestial Indigo Center Glow */
+  --primary: #030b18;
+  --primary-light: #0d2a54;
+  --primary-glow: #153e78;
+
+  /* Devotional Metallic Gold Tones */
+  --gold-primary: #ecc558;      /* Primary Golden Accent */
+  --gold-bright: #ffd700;       /* Luminous Pure Gold */
+  --gold-light: #fff5bd;        /* Champagne White-Gold Highlight */
+  --gold-deep: #b8860b;         /* Deep Burnished Temple Gold */
+  --gold-shadow: #8a5e04;       /* Antique Gold Shadow */
+  --secondary: #d4af37;         /* Sacred Gold Token */
+
+  /* Typography & Interface Tones */
+  --text-white: #ffffff;
+  --text-light: #f1f5f9;        /* Soft Starlight White */
+  --text-muted: #94a3b8;        /* Silvery Slate */
+  --text-subtle: #64748b;
+
+  /* Glassmorphic & Aura Tokens */
+  --glass-dark-bg: rgba(4, 18, 38, 0.82);
+  --glass-dark-pill: rgba(5, 20, 44, 0.88);
+  --glass-border-gold: rgba(212, 175, 55, 0.32);
+  --glass-border-glow: rgba(255, 215, 0, 0.65);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(212, 175, 55, 0.06);
+
+  /* Typography Families */
+  --font-serif: 'Cinzel', Georgia, serif;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  font-family: var(--font-sans);
+  color: var(--text-light);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 16:9 Presentation Stage Wrapper */
+.stage-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: radial-gradient(circle at 50% 45%, #0c2b57 0%, #061935 42%, #030b18 80%, #01060f 100%);
+  padding: clamp(0.75rem, 1.4vw, 1.4rem) clamp(1.2rem, 2.2vw, 2.4rem);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Golden Starlight Beam at Top Edge */
+.stage-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 15%, #ffd700 50%, rgba(212, 175, 55, 0.3) 85%, transparent 100%);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+  z-index: 20;
+}
+
+/* Starfield & Golden Particle Canvas */
+#particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Corner Vedic Ornaments with Golden Glow */
+.corner-ornament {
+  position: absolute;
+  width: clamp(80px, 10vw, 150px);
+  height: clamp(80px, 10vw, 150px);
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 3;
+}
+.corner-ornament.top-left {
+  top: 0;
+  left: 0;
+  border-top: 2px solid var(--secondary);
+  border-left: 2px solid var(--secondary);
+  background: radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+.corner-ornament.top-right {
+  top: 0;
+  right: 0;
+  border-top: 2px solid var(--secondary);
+  border-right: 2px solid var(--secondary);
+  background: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+.corner-ornament.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid var(--secondary);
+  border-left: 2px solid var(--secondary);
+  background: radial-gradient(circle at 0% 100%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+.corner-ornament.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid var(--secondary);
+  border-right: 2px solid var(--secondary);
+  background: radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   Discreet Floating Operator Trigger (Top Right)
+   ========================================================================== */
+.top-operator-wrapper {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.8rem);
+  right: clamp(1rem, 2vw, 1.8rem);
+  z-index: 50;
+}
+
+.btn-icon-subtle {
+  background: rgba(10, 28, 56, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--gold-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 8px rgba(212, 175, 55, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.btn-icon-subtle:hover {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: var(--gold-bright);
+  color: #ffffff;
+  transform: rotate(45deg) scale(1.08);
+  box-shadow: 0 0 15px rgba(245, 197, 66, 0.6);
+}
+
+/* ==========================================================================
+   Center Stage: Sacred Identity & Activation Core
+   ========================================================================== */
+.stage-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto 0;
+}
+
+/* Background Mandala & Sacred Golden Aura */
+.mandala-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(380px, 50vw, 720px);
+  height: clamp(380px, 50vw, 720px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.65;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s ease;
+}
+
+.mandala-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: spinMandala 140s linear infinite;
+  filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.45)) brightness(1.05);
+}
+
+@keyframes spinMandala {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.divine-aura-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(280px, 40vw, 580px);
+  height: clamp(280px, 40vw, 580px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 197, 88, 0.32) 0%, rgba(212, 175, 55, 0.12) 50%, transparent 75%);
+  filter: blur(30px);
+  animation: pulseAura 4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -2;
+}
+
+@keyframes pulseAura {
+  0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+}
+
+/* Sacred Flute Graphic Motif */
+.hero-flute-motif {
+  width: clamp(130px, 16vw, 210px);
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0.35rem;
+  filter: drop-shadow(0 0 16px rgba(236, 197, 88, 0.45));
+  animation: floatFlute 5s ease-in-out infinite alternate;
+}
+
+@keyframes floatFlute {
+  0% { transform: translateY(0) rotate(-2deg); }
+  100% { transform: translateY(-8px) rotate(1deg); }
+}
+
+/* Event Supertitle: Arched Gold Serif Typography */
+.event-supertitle {
+  display: inline-block;
+  color: var(--gold-primary);
+  font-family: var(--font-serif);
+  font-size: clamp(0.72rem, 0.85vw, 0.95rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: clamp(3px, 0.35vw, 5.5px);
+  margin-bottom: 0.35rem;
+  text-shadow: 0 0 12px rgba(236, 197, 88, 0.4);
+}
+
+/* Main Event Title: Radiant Metallic Gold Gradient */
+.event-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.8vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: clamp(2px, 0.35vw, 4.5px);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF5BD 18%, #F7C948 48%, #D49B18 78%, #966503 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(245, 197, 66, 0.45)) drop-shadow(0 4px 15px rgba(0, 0, 0, 0.9));
+  margin-bottom: 0.35rem;
+}
+
+.event-main-title .gold-accent {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF8D6 20%, #FFD700 50%, #E6A100 80%, #995C00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Tagline: Crisp Off-White */
+.event-tagline {
+  font-size: clamp(0.85rem, 1.05vw, 1.15rem);
+  font-weight: 400;
+  color: #cbd5e1;
+  letter-spacing: 1.1px;
+  margin-bottom: 0.55rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Event Venue Bar: Sleek Dark Glass Pill with Gold Trim */
+.event-venue-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: clamp(0.75rem, 0.85vw, 0.95rem);
+  font-weight: 500;
+  color: var(--text-light);
+  background: var(--glass-dark-pill);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border-gold);
+  padding: 0.35rem 1.3rem;
+  border-radius: 30px;
+  margin-bottom: clamp(0.8rem, 1.3vw, 1.4rem);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.08);
+}
+
+.event-venue-bar span:first-child {
+  color: var(--gold-light);
+}
+
+/* ==========================================================================
+   Activation Zone: Sacred Prompt, Mic Orb & Waveform
+   ========================================================================== */
+.activation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sacred-phrase-prompt {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.35vw, 1.55rem);
+  color: var(--gold-primary);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-shadow: 0 0 12px rgba(236, 197, 88, 0.3);
+}
+
+.sacred-phrase-prompt .prompt-text {
+  color: var(--gold-primary);
+}
+
+.sacred-phrase-prompt span.quote {
+  color: #fff4cc;
+  font-weight: 900;
+  padding: 0.25rem 0.95rem;
+  background: rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 8px;
+  border: 1.5px solid rgba(212, 175, 55, 0.75);
+  box-shadow: 0 0 20px rgba(245, 197, 66, 0.35), inset 0 0 10px rgba(245, 197, 66, 0.15);
+  text-shadow: 0 0 12px rgba(255, 235, 150, 0.8);
+}
+
+/* Central Microphone Orb Trigger */
+.mic-orb-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mic-pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 197, 66, 0.7);
+  opacity: 0.7;
+  animation: ringPulse 2.4s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes ringPulse {
+  0% { transform: scale(0.95); opacity: 0.85; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
+
+.btn-mic-orb {
+  position: relative;
+  width: clamp(66px, 5.2vw, 82px);
+  height: clamp(66px, 5.2vw, 82px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff6d1 0%, #f6c844 45%, #d19412 80%, #8c5e00 100%);
+  border: 3px solid #ffffff;
+  color: #3b2002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.6rem, 2.1vw, 2.3rem);
+  cursor: pointer;
+  box-shadow: 0 0 35px rgba(245, 197, 66, 0.7), 0 0 70px rgba(245, 197, 66, 0.35), 0 10px 30px rgba(0, 0, 0, 0.7);
+  transition: var(--transition-smooth);
+  outline: none;
+}
+
+.btn-mic-orb:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 45px rgba(245, 197, 66, 0.9), 0 0 90px rgba(245, 197, 66, 0.5), 0 12px 35px rgba(0, 0, 0, 0.8);
+}
+
+.btn-mic-orb:active {
+  transform: scale(0.96);
+}
+
+.tilak-orb-icon {
+  width: 58%;
+  height: 58%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+  transition: transform 0.3s ease;
+}
+
+.btn-mic-orb:hover .tilak-orb-icon {
+  transform: scale(1.12);
+}
+
+/* Audio Waveform Bars */
+.waveform-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+.waveform-container.active {
+  opacity: 1;
+}
+
+.wave-bar {
+  width: 3.5px;
+  height: 6px;
+  background: var(--gold-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(236, 197, 88, 0.5);
+  transition: height 0.15s ease;
+}
+
+.waveform-container.active .wave-bar:nth-child(1) { animation: waveAnim 0.7s infinite alternate ease-in-out; }
+.waveform-container.active .wave-bar:nth-child(2) { animation: waveAnim 0.9s infinite alternate ease-in-out 0.2s; }
+.waveform-container.active .wave-bar:nth-child(3) { animation: waveAnim 1.2s infinite alternate ease-in-out 0.1s; }
+.waveform-container.active .wave-bar:nth-child(4) { animation: waveAnim 0.8s infinite alternate ease-in-out 0.3s; }
+.waveform-container.active .wave-bar:nth-child(5) { animation: waveAnim 1.1s infinite alternate ease-in-out 0.15s; }
+
+@keyframes waveAnim {
+  0% { height: 4px; }
+  100% { height: 24px; }
+}
+
+/* Status Pill */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.35rem 1.25rem;
+  border-radius: 30px;
+  font-size: clamp(0.72rem, 0.8vw, 0.88rem);
+  font-weight: 500;
+  background: var(--glass-dark-pill);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  color: var(--text-light);
+  transition: var(--transition-smooth);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+.status-idle .status-dot { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+.status-requesting .status-dot { background: #eab308; box-shadow: 0 0 10px #eab308; animation: dotBlink 0.8s infinite alternate; }
+.status-listening .status-dot { background: #10b981; box-shadow: 0 0 12px #10b981; animation: dotBlink 0.6s infinite alternate; }
+.status-detected .status-dot { background: #ffd700; box-shadow: 0 0 16px #ffd700; }
+.status-error .status-dot { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+.status-fallback .status-dot { background: var(--gold-primary); }
+
+@keyframes dotBlink {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* ==========================================================================
+   Footer: Auditorium Reliability & Manual Backup
+   ========================================================================== */
+.stage-footer {
+  position: relative;
+  width: 100%;
+  max-width: 1750px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  gap: 1rem;
+}
+
+.footer-auxiliary {
+  font-size: clamp(0.72rem, 0.8vw, 0.88rem);
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+.footer-auxiliary strong {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+/* Sacred Manual Fallback Button */
+.btn-manual-ceremonial {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, rgba(28, 18, 5, 0.9) 0%, rgba(54, 38, 12, 0.9) 100%);
+  border: 1.5px solid #d4af37;
+  border-radius: 40px;
+  color: var(--gold-primary);
+  font-family: var(--font-serif);
+  font-size: clamp(0.78rem, 0.88vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: clamp(0.55rem, 0.7vw, 0.85rem) clamp(1.2rem, 1.5vw, 1.8rem);
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.25), inset 0 0 10px rgba(212, 175, 55, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.btn-manual-ceremonial:hover {
+  background: linear-gradient(135deg, rgba(42, 28, 8, 0.95) 0%, rgba(78, 56, 18, 0.95) 100%);
+  border-color: var(--gold-bright);
+  color: #fff4cc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 215, 0, 0.45), inset 0 0 15px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-manual-ceremonial:active {
+  transform: translateY(1px);
+}
+
+.diya-icon {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 6px #ffd700);
+}
+
+/* ==========================================================================
+   Celebration Awakening & Sacred Reveal Screen Overlay
+   ========================================================================== */
+#celebration-reveal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(12, 43, 87, 0.97) 0%, rgba(4, 18, 38, 0.99) 65%, rgba(1, 6, 15, 1) 100%);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#celebration-reveal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.reveal-content-card {
+  position: relative;
+  text-align: center;
+  max-width: 1300px;
+  padding: 2.5rem;
+  z-index: 101;
+}
+
+/* Sacred Words Grand Display: Luminous Gold Awakening */
+.sacred-phrase-large {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 7.5vw, 7.5rem);
+  font-weight: 900;
+  letter-spacing: clamp(4px, 0.8vw, 12px);
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF5BD 20%, #F7C948 50%, #D49B18 80%, #966503 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(245, 197, 66, 0.7)) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.9));
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 1.5rem;
+}
+
+.sacred-phrase-large.animate-reveal {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Event Identity Sub-Reveal */
+.event-identity-large {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.event-identity-large.animate-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.celebration-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.8vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 25px rgba(245, 197, 66, 0.5);
+}
+
+.celebration-subtitle {
+  font-size: clamp(1.1rem, 1.8vw, 2rem);
+  font-weight: 700;
+  color: var(--gold-primary);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(245, 197, 66, 0.5);
+}
+
+/* Portal Transition Curtain */
+#portal-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 50%, #0c2b57 0%, #061935 45%, #020b18 100%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 200;
+  transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#portal-curtain.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.portal-loading-mandala {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  animation: spinMandala 4s linear infinite;
+  filter: drop-shadow(0 0 35px rgba(212, 175, 55, 0.7));
+  margin-bottom: 2rem;
+}
+
+#portal-status-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.2vw, 2.6rem);
+  font-weight: 800;
+  color: var(--gold-bright);
+  letter-spacing: 2px;
+  text-shadow: 0 0 16px rgba(255, 215, 0, 0.6);
+}
+
+/* Dim background elements when celebration starts */
+body.celebration-started .stage-center {
+  opacity: 0.15;
+  transition: opacity 1.2s ease;
+}
+body.celebration-started .mandala-backdrop {
+  transform: translate(-50%, -50%) scale(1.6);
+  opacity: 0.9;
+}
+body.celebration-started .divine-aura-ring {
+  transform: translate(-50%, -50%) scale(2.2);
+  opacity: 0.95;
+}
+
+/* ==========================================================================
+   Operator Drawer & Testing Panel
+   ========================================================================== */
+.operator-drawer {
+  position: fixed;
+  top: 0;
+  right: -380px;
+  width: 360px;
+  height: 100vh;
+  background: rgba(3, 13, 28, 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-left: 2px solid var(--secondary);
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  z-index: 500;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  color: var(--text-light);
+}
+
+.operator-drawer.open {
+  right: 0;
+}
+
+.operator-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.operator-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+
+.btn-close-drawer {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.btn-close-drawer:hover {
+  color: #ffffff;
+}
+
+.operator-section {
+  margin-bottom: 1.5rem;
+}
+
+.operator-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold-primary);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.operator-btn {
+  width: 100%;
+  background: rgba(8, 25, 52, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--text-light);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-smooth);
+}
+.operator-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+}
+
+.operator-input {
+  width: 100%;
+  background: rgba(4, 18, 38, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #ffffff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.hotkey-badge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+.hotkey-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.badge-key {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--gold-bright);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Reduced Motion & Responsive
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .stage-header {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .stage-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+}
