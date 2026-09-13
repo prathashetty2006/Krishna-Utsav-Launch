@@ -1,9 +1,10 @@
 /**
  * KRISHNA-UTSAV 2K26 — Little Krishna Voice Engine
- * Plays the divine Little Krishna voice return greeting:
- * "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26"
+ * Plays the divine Little Krishna voice return greeting in authentic Hindi:
+ * "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है"
+ * (Jai Shri Krishna! Welcome to the Krishna Utsav.)
  * 
- * 1. Plays authentic voice audio file with child-pitch modulation (1.18x, preservesPitch=false)
+ * 1. Plays authentic native Hindi audio file with child-pitch modulation (1.15x, preservesPitch=false)
  * 2. Seamless Web Speech API synthesis fallback (retains active utterance reference for Chrome V8 GC)
  * 3. Ducks background flute music for crystal-clear auditorium acoustics
  */
@@ -17,19 +18,19 @@ class LittleKrishnaVoiceEngine {
   }
 
   /**
-   * Speaks "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26"
+   * Speaks "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है"
    */
   speakGreeting(customText = null) {
     if (!CONFIG.KRISHNA_VOICE || !CONFIG.KRISHNA_VOICE.ENABLED) return;
     const textToSpeak = customText || CONFIG.KRISHNA_VOICE.RESPONSE_TEXT;
 
-    console.log("🌸 Little Krishna Voice Greeting initiated:", textToSpeak);
+    console.log("🌸 Little Krishna Voice Greeting initiated (Hindi):", textToSpeak);
 
     // Smoothly dip background flute music so Little Krishna's voice shines
     divineAudio.duckVolume(0.18);
 
     // 1. Primary: Play high-fidelity voice audio with divine child pitch modulation
-    const audioPath = CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH || "../Image and Audio/audio/little_krishna_voice.wav";
+    const audioPath = CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH || "../Image and Audio/audio/little_krishna_hindi.mp3";
 
     try {
       if (this.activeAudio) {

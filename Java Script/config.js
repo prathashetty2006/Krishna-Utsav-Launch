@@ -46,12 +46,13 @@ export const CONFIG = {
     CUE_PATH: "../Image and Audio/audio/krishna_flute.mp3"
   },
 
-  // Little Krishna Voice Greeting Settings
+  // Little Krishna Voice Greeting Settings (Authentic Hindi)
   KRISHNA_VOICE: {
     ENABLED: true,
-    RESPONSE_TEXT: "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26",
+    RESPONSE_TEXT: "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है",
+    RESPONSE_TEXT_ENGLISH: "Jai Shri Krishna! Welcome to the Krishna Utsav.",
     PITCH: 1.45,
     RATE: 0.95,
-    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_voice.wav"
+    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_hindi.mp3"
   }
 };
