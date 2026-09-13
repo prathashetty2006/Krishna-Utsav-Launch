@@ -52,6 +52,6 @@ export const CONFIG = {
     RESPONSE_TEXT: "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26",
     PITCH: 1.45,
     RATE: 0.95,
-    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_voice.mp3"
+    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_voice.wav"
   }
 };

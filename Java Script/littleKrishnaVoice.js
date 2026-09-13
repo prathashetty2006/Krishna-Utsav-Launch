@@ -1,68 +1,23 @@
 /**
  * KRISHNA-UTSAV 2K26 — Little Krishna Voice Engine
- * Handles the divine return greeting when the sacred reveal screen appears.
- * Tunes Web Speech API speech synthesis to sound like a joyful, divine child (Little Krishna),
- * with support for Indian accents and optional custom MP3 audio playback.
+ * Plays the divine Little Krishna voice return greeting:
+ * "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26"
+ * 
+ * 1. Plays authentic voice audio file with child-pitch modulation (1.18x, preservesPitch=false)
+ * 2. Seamless Web Speech API synthesis fallback (retains active utterance reference for Chrome V8 GC)
+ * 3. Ducks background flute music for crystal-clear auditorium acoustics
  */
 import { CONFIG } from './config.js';
 import { divineAudio } from './audio.js';
 
 class LittleKrishnaVoiceEngine {
   constructor() {
-    this.synth = typeof window !== 'undefined' && window.speechSynthesis ? window.speechSynthesis : null;
-    this.voices = [];
+    this.activeAudio = null;
     this.isSpeaking = false;
-    this.initVoices();
-  }
-
-  initVoices() {
-    if (!this.synth) return;
-    const updateVoices = () => {
-      this.voices = this.synth.getVoices();
-    };
-    updateVoices();
-    if (this.synth.onvoiceschanged !== undefined) {
-      this.synth.onvoiceschanged = updateVoices;
-    }
-  }
-
-  /**
-   * Finds the most melodious and authentic voice for Little Krishna:
-   * Prioritizes Indian English/Hindi female or youthful natural voices,
-   * then sweet/natural voices, before generic fallbacks.
-   */
-  getBestVoice() {
-    if (!this.voices || this.voices.length === 0) {
-      if (this.synth) this.voices = this.synth.getVoices();
-    }
-    if (!this.voices || this.voices.length === 0) return null;
-
-    // 1. Indian English / Hindi Voices (most authentic pronunciation of "Jai Shree Krishna")
-    const indianVoices = this.voices.filter(v => 
-      v.lang.startsWith('hi') || 
-      v.lang === 'en-IN' || 
-      /heera|neerja|kalpana|geeta|swara|prabhat|ravi|veena/i.test(v.name)
-    );
-    if (indianVoices.length > 0) {
-      // Prefer female/higher natural timbre if present as base for child pitch
-      const femaleIndian = indianVoices.find(v => /female|heera|neerja|kalpana|veena/i.test(v.name));
-      return femaleIndian || indianVoices[0];
-    }
-
-    // 2. High-quality natural female voices (shift effortlessly to childlike divine pitch)
-    const naturalFemale = this.voices.find(v => 
-      (v.lang.startsWith('en')) && /natural|aria|jenny|zira|samantha|karen|victoria/i.test(v.name)
-    );
-    if (naturalFemale) return naturalFemale;
-
-    // 3. Any English voice
-    const anyEnglish = this.voices.find(v => v.lang.startsWith('en'));
-    return anyEnglish || this.voices[0];
   }
 
   /**
    * Speaks "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26"
-   * Ducks the background flute music while speaking and restores it afterwards.
    */
   speakGreeting(customText = null) {
     if (!CONFIG.KRISHNA_VOICE || !CONFIG.KRISHNA_VOICE.ENABLED) return;
@@ -70,90 +25,107 @@ class LittleKrishnaVoiceEngine {
 
     console.log("🌸 Little Krishna Voice Greeting initiated:", textToSpeak);
 
-    // Duck background music for clarity in auditorium
+    // Smoothly dip background flute music so Little Krishna's voice shines
     divineAudio.duckVolume(0.18);
 
-    // Try playing dedicated MP3 audio file first if it exists
-    if (CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH) {
-      const audioClip = new Audio(CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH);
-      let clipPlayed = false;
+    // 1. Primary: Play high-fidelity voice audio with divine child pitch modulation
+    const audioPath = CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH || "../Image and Audio/audio/little_krishna_voice.wav";
 
-      audioClip.oncanplaythrough = () => {
-        if (clipPlayed) return;
-        clipPlayed = true;
-        audioClip.volume = 1.0;
-        audioClip.play().then(() => {
-          console.log("Playing recorded Little Krishna voice clip.");
-          audioClip.onended = () => {
-            divineAudio.restoreVolume();
-          };
-        }).catch(() => {
+    try {
+      if (this.activeAudio) {
+        this.activeAudio.pause();
+        this.activeAudio.currentTime = 0;
+      }
+
+      const audio = new Audio(audioPath);
+      this.activeAudio = audio;
+      audio.volume = 1.0;
+
+      // Pitch shift up to divine child timbre
+      audio.playbackRate = 1.15;
+      audio.preservesPitch = false;
+      audio.mozPreservesPitch = false;
+      audio.webkitPreservesPitch = false;
+
+      audio.onended = () => {
+        console.log("🌸 Little Krishna audio greeting finished.");
+        divineAudio.restoreVolume();
+        this.isSpeaking = false;
+      };
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          this.isSpeaking = true;
+          console.log("🌸 Little Krishna divine audio playing successfully!");
+        }).catch((err) => {
+          console.warn("Direct audio play failed or blocked, falling back to Web Speech:", err.message);
           this.synthesizeVoice(textToSpeak);
         });
-      };
-
-      audioClip.onerror = () => {
-        // MP3 file not found or failed, seamlessly fall back to browser synthesis
-        this.synthesizeVoice(textToSpeak);
-      };
-
-      // Set timeout fallback in case audio load hangs
-      setTimeout(() => {
-        if (!clipPlayed && !this.isSpeaking) {
-          this.synthesizeVoice(textToSpeak);
-        }
-      }, 350);
-      return;
+      }
+    } catch (e) {
+      console.warn("Audio creation failed, falling back to Web Speech:", e);
+      this.synthesizeVoice(textToSpeak);
     }
-
-    this.synthesizeVoice(textToSpeak);
   }
 
   /**
-   * Synthesizes Little Krishna voice using browser Web Speech API
+   * Web Speech API Fallback with anti-garbage-collection and proper language pairing
    */
   synthesizeVoice(text) {
-    if (!this.synth) {
-      console.warn("Speech synthesis not supported in this environment.");
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
       divineAudio.restoreVolume();
       return;
     }
 
     try {
-      this.synth.cancel(); // Clear any ongoing utterances
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.resume();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      const voice = this.getBestVoice();
-      if (voice) {
-        utterance.voice = voice;
-        utterance.lang = voice.lang || 'en-IN';
-      } else {
-        utterance.lang = 'en-IN';
+      // Keep global reference to prevent Chrome V8 garbage collector from dropping speech
+      window.__activeKrishnaUtterance = utterance;
+
+      const voices = window.speechSynthesis.getVoices();
+      let selectedVoice = null;
+
+      if (voices && voices.length > 0) {
+        // Look for Indian English/Hindi voice first
+        selectedVoice = voices.find(v => v.lang.startsWith('hi') || v.lang === 'en-IN');
+        // Otherwise look for natural female voice as base for child pitch
+        if (!selectedVoice) {
+          selectedVoice = voices.find(v => /zira|female|natural|samantha/i.test(v.name));
+        }
+        if (!selectedVoice) {
+          selectedVoice = voices[0];
+        }
       }
 
-      // Little Krishna Divine Child Acoustics
-      utterance.pitch = CONFIG.KRISHNA_VOICE.PITCH || 1.45; // Higher child pitch
-      utterance.rate = CONFIG.KRISHNA_VOICE.RATE || 0.95;   // Gentle, clear rhythm
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang; // Must match voice to prevent Windows SAPI rejection
+      }
+
+      utterance.pitch = CONFIG.KRISHNA_VOICE.PITCH || 1.45; // Child-like divine pitch
+      utterance.rate = CONFIG.KRISHNA_VOICE.RATE || 0.95;
       utterance.volume = 1.0;
 
-      this.isSpeaking = true;
-
-      const finishSpeaking = () => {
+      utterance.onend = () => {
+        window.__activeKrishnaUtterance = null;
         this.isSpeaking = false;
-        setTimeout(() => {
-          divineAudio.restoreVolume();
-        }, 300);
+        divineAudio.restoreVolume();
       };
 
-      utterance.onend = finishSpeaking;
       utterance.onerror = (e) => {
-        console.warn("Little Krishna voice synthesis error:", e);
-        finishSpeaking();
+        console.warn("Speech synthesis notice:", e);
+        window.__activeKrishnaUtterance = null;
+        this.isSpeaking = false;
+        divineAudio.restoreVolume();
       };
 
-      this.synth.speak(utterance);
+      window.speechSynthesis.speak(utterance);
     } catch (e) {
-      console.error("Error synthesizing Little Krishna voice:", e);
+      console.error("Speech synthesis failed:", e);
       divineAudio.restoreVolume();
     }
   }
