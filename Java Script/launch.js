@@ -7,6 +7,7 @@ import { CONFIG } from './config.js?v=bouncy2026';
 import { divineAudio } from './audio.js?v=bouncy2026';
 import { VoiceRecognitionEngine } from './speech.js?v=bouncy2026';
 import { CelebrationEngine } from './celebration.js?v=bouncy2026';
+import { littleKrishnaVoice } from './littleKrishnaVoice.js?v=bouncy2026';
 
 class LaunchApp {
   constructor() {
@@ -54,6 +55,7 @@ class LaunchApp {
       btnToggleOperator: document.getElementById('btn-toggle-operator'),
       btnCloseOperator: document.getElementById('btn-close-operator'),
       btnSimulateVoice: document.getElementById('btn-simulate-voice'),
+      btnTestKrishnaVoice: document.getElementById('btn-test-krishna-voice'),
       btnTestAudio: document.getElementById('btn-test-audio'),
       btnResetState: document.getElementById('btn-reset-state'),
       volumeSlider: document.getElementById('operator-volume-slider'),
@@ -124,6 +126,11 @@ class LaunchApp {
     if (this.dom.btnSimulateVoice) {
       this.dom.btnSimulateVoice.addEventListener('click', () => {
         this.onSacredPhraseHeard("jai shree krishna (simulated)");
+      });
+    }
+    if (this.dom.btnTestKrishnaVoice) {
+      this.dom.btnTestKrishnaVoice.addEventListener('click', () => {
+        littleKrishnaVoice.speakGreeting();
       });
     }
     if (this.dom.btnTestAudio) {

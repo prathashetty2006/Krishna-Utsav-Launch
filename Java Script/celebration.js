@@ -5,6 +5,7 @@
  */
 import { CONFIG } from './config.js';
 import { divineAudio } from './audio.js';
+import { littleKrishnaVoice } from './littleKrishnaVoice.js';
 
 export class CelebrationEngine {
   constructor(elements = {}) {
@@ -183,6 +184,8 @@ export class CelebrationEngine {
       if (this.sacredPhraseEl) {
         this.sacredPhraseEl.classList.add('animate-reveal');
       }
+      // Divine Child Return Greeting: Little Krishna speaks back to the guest
+      littleKrishnaVoice.speakGreeting();
     }, CONFIG.TIMINGS.SACRED_PHRASE_REVEAL);
 
     // Stage 4: Event Identity "KRISHNA-UTSAV 2K26" Reveal (Timeline 4.5s)
@@ -214,6 +217,9 @@ export class CelebrationEngine {
   reset() {
     this.isCelebrationActive = false;
     document.body.classList.remove('celebration-started');
+
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    divineAudio.restoreVolume();
 
     if (this.revealOverlay) this.revealOverlay.classList.remove('visible');
     if (this.sacredPhraseEl) this.sacredPhraseEl.classList.remove('animate-reveal');

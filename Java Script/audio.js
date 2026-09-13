@@ -1,3 +1,4 @@
+
 /**
  * KRISHNA-UTSAV 2K26 — Audio Engine
  * Exclusively plays the user's authentic devotional audio: krishna_flute.mp3
@@ -76,6 +77,36 @@ class DivineAudioEngine {
         });
       }
     }
+  }
+
+  /**
+   * Smoothly dips background flute music volume so speech is heard clearly
+   */
+  duckVolume(target = 0.2, stepMs = 30) {
+    if (!this.audio || this.isMuted) return;
+    this.originalVolume = this.volume;
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
+    let current = this.audio.volume;
+    this.fadeInterval = setInterval(() => {
+      current = Math.max(target, current - 0.05);
+      if (this.audio) this.audio.volume = current;
+      if (current <= target) clearInterval(this.fadeInterval);
+    }, stepMs);
+  }
+
+  /**
+   * Smoothly restores background flute music to its pre-duck level
+   */
+  restoreVolume(stepMs = 40) {
+    if (!this.audio || this.isMuted) return;
+    const target = this.originalVolume || this.volume || 0.85;
+    if (this.fadeInterval) clearInterval(this.fadeInterval);
+    let current = this.audio.volume;
+    this.fadeInterval = setInterval(() => {
+      current = Math.min(target, current + 0.05);
+      if (this.audio) this.audio.volume = current;
+      if (current >= target) clearInterval(this.fadeInterval);
+    }, stepMs);
   }
 
   initContext() {

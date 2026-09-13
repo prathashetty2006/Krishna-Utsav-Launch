@@ -35,8 +35,8 @@ export const CONFIG = {
     PARTICLES_START: 2500,
     SACRED_PHRASE_REVEAL: 3000,
     EVENT_IDENTITY_REVEAL: 4500,
-    PORTAL_TRANSITION_START: 6200,
-    PORTAL_NAVIGATE: 7800
+    PORTAL_TRANSITION_START: 7200,
+    PORTAL_NAVIGATE: 9500
   },
 
   // Audio Settings
@@ -44,5 +44,14 @@ export const CONFIG = {
     DEFAULT_VOLUME: 0.85,
     ENABLED: true,
     CUE_PATH: "../Image and Audio/audio/krishna_flute.mp3"
+  },
+
+  // Little Krishna Voice Greeting Settings
+  KRISHNA_VOICE: {
+    ENABLED: true,
+    RESPONSE_TEXT: "Jai Shree Krishna! Welcome to Krishna-Utsav 2K26",
+    PITCH: 1.45,
+    RATE: 0.95,
+    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_voice.mp3"
   }
 };
