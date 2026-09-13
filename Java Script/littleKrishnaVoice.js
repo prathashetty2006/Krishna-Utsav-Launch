@@ -1,132 +1,192 @@
 /**
- * KRISHNA-UTSAV 2K26 — Little Krishna Voice Engine
- * Plays the divine Little Krishna voice return greeting in authentic Hindi:
- * "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है"
- * (Jai Shri Krishna! Welcome to the Krishna Utsav.)
- * 
- * 1. Plays authentic native Hindi audio file with child-pitch modulation (1.15x, preservesPitch=false)
- * 2. Seamless Web Speech API synthesis fallback (retains active utterance reference for Chrome V8 GC)
- * 3. Ducks background flute music for crystal-clear auditorium acoustics
+ * KRISHNA-UTSAV 2K26 — Little Krishna Voice Engine (Cartoon Character Sound Design)
+ * Crafts the authentic Little Krishna animation voice:
+ * - Native Hindi: "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है"
+ * - Web Audio API High-pass filter (220 Hz) to eliminate adult chest resonance
+ * - Peaking presence filter (3200 Hz, +5dB) for animated cartoon vocal clarity
+ * - Playback rate (1.32x) for energetic, sweet child pitch
+ * - Gentle divine sparkle chime intro
+ * - Dynamic audio ducking of background flute music
  */
 import { CONFIG } from './config.js';
 import { divineAudio } from './audio.js';
 
 class LittleKrishnaVoiceEngine {
   constructor() {
-    this.activeAudio = null;
+    this.audioCtx = null;
+    this.audioBuffer = null;
+    this.currentSource = null;
+    this.fallbackAudio = null;
     this.isSpeaking = false;
+    this.pitchRate = (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.CARTOON_PITCH) || 1.32;
+
+    this.preloadBuffer();
+  }
+
+  getAudioContext() {
+    if (!this.audioCtx && typeof window !== 'undefined') {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.audioCtx = new AudioCtx();
+    }
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume();
+    }
+    return this.audioCtx;
+  }
+
+  setPitch(rate) {
+    this.pitchRate = Math.max(1.0, Math.min(1.6, parseFloat(rate) || 1.32));
+    if (CONFIG.KRISHNA_VOICE) {
+      CONFIG.KRISHNA_VOICE.CARTOON_PITCH = this.pitchRate;
+    }
   }
 
   /**
-   * Speaks "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है"
+   * Pre-fetches and decodes the audio buffer into memory for instant playback
    */
-  speakGreeting(customText = null) {
+  async preloadBuffer() {
+    const audioPath = CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH || "../Image and Audio/audio/little_krishna_hindi.mp3";
+    try {
+      const response = await fetch(audioPath);
+      const arrayBuffer = await response.arrayBuffer();
+      const ctx = this.getAudioContext();
+      if (ctx) {
+        this.audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+        console.log("🌸 Little Krishna cartoon audio buffer ready in memory.");
+      }
+    } catch (e) {
+      console.warn("Audio buffer preloading notice:", e);
+    }
+  }
+
+  /**
+   * Generates a sweet, gentle divine temple chime / stardust sparkle (D6 - G6 - B6)
+   */
+  playDivineChime(ctx, startTime) {
+    if (!ctx) return;
+    try {
+      const notes = [1174.66, 1567.98, 1975.53]; // D6, G6, B6
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        const t = startTime + idx * 0.07;
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.06, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.4);
+      });
+    } catch (e) {}
+  }
+
+  /**
+   * Speaks Little Krishna greeting using cartoon voice processing
+   */
+  async speakGreeting(customText = null) {
     if (!CONFIG.KRISHNA_VOICE || !CONFIG.KRISHNA_VOICE.ENABLED) return;
     const textToSpeak = customText || CONFIG.KRISHNA_VOICE.RESPONSE_TEXT;
 
-    console.log("🌸 Little Krishna Voice Greeting initiated (Hindi):", textToSpeak);
+    console.log("🌸 Little Krishna Cartoon Voice Greeting initiated:", textToSpeak);
 
-    // Smoothly dip background flute music so Little Krishna's voice shines
-    divineAudio.duckVolume(0.18);
+    // Duck background music for clarity in auditorium
+    divineAudio.duckVolume(0.15);
 
-    // 1. Primary: Play high-fidelity voice audio with divine child pitch modulation
-    const audioPath = CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH || "../Image and Audio/audio/little_krishna_hindi.mp3";
+    const ctx = this.getAudioContext();
 
-    try {
-      if (this.activeAudio) {
-        this.activeAudio.pause();
-        this.activeAudio.currentTime = 0;
+    // 1. Try Web Audio API with Cartoon Vocal Formant Shaping
+    if (ctx) {
+      try {
+        if (!this.audioBuffer) {
+          await this.preloadBuffer();
+        }
+
+        if (this.audioBuffer) {
+          if (this.currentSource) {
+            try { this.currentSource.stop(); } catch (e) {}
+          }
+
+          const now = ctx.currentTime;
+
+          // Divine chime sparkle right as Little Krishna speaks
+          this.playDivineChime(ctx, now);
+
+          const source = ctx.createBufferSource();
+          source.buffer = this.audioBuffer;
+          source.playbackRate.value = this.pitchRate; // 1.32x: Playful child pitch
+
+          // High-pass filter (220 Hz): cuts out adult chest resonance
+          const highPass = ctx.createBiquadFilter();
+          highPass.type = 'highpass';
+          highPass.frequency.value = 220;
+
+          // Peaking filter (3200 Hz, +5dB): adds bright animated cartoon clarity
+          const presenceBoost = ctx.createBiquadFilter();
+          presenceBoost.type = 'peaking';
+          presenceBoost.frequency.value = 3200;
+          presenceBoost.Q.value = 1.2;
+          presenceBoost.gain.value = 5.0;
+
+          // Master voice volume
+          const gainNode = ctx.createGain();
+          gainNode.gain.value = 1.2;
+
+          // Connect audio graph
+          source.connect(highPass);
+          highPass.connect(presenceBoost);
+          presenceBoost.connect(gainNode);
+          gainNode.connect(ctx.destination);
+
+          this.currentSource = source;
+          this.isSpeaking = true;
+
+          source.onended = () => {
+            console.log("🌸 Little Krishna cartoon voice finished.");
+            this.isSpeaking = false;
+            divineAudio.restoreVolume();
+          };
+
+          // Start speech right as chime resonates
+          source.start(now + 0.12);
+          return;
+        }
+      } catch (e) {
+        console.warn("Web Audio processing fallback:", e);
       }
+    }
 
+    // 2. Direct HTMLAudioElement Fallback
+    const audioPath = CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH || "../Image and Audio/audio/little_krishna_hindi.mp3";
+    try {
+      if (this.fallbackAudio) {
+        this.fallbackAudio.pause();
+        this.fallbackAudio.currentTime = 0;
+      }
       const audio = new Audio(audioPath);
-      this.activeAudio = audio;
+      this.fallbackAudio = audio;
       audio.volume = 1.0;
-
-      // Pitch shift up to divine child timbre
-      audio.playbackRate = 1.15;
+      audio.playbackRate = this.pitchRate;
       audio.preservesPitch = false;
       audio.mozPreservesPitch = false;
       audio.webkitPreservesPitch = false;
 
       audio.onended = () => {
-        console.log("🌸 Little Krishna audio greeting finished.");
         divineAudio.restoreVolume();
         this.isSpeaking = false;
       };
 
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
+      const p = audio.play();
+      if (p !== undefined) {
+        p.then(() => {
           this.isSpeaking = true;
-          console.log("🌸 Little Krishna divine audio playing successfully!");
-        }).catch((err) => {
-          console.warn("Direct audio play failed or blocked, falling back to Web Speech:", err.message);
-          this.synthesizeVoice(textToSpeak);
+        }).catch(() => {
+          divineAudio.restoreVolume();
         });
       }
     } catch (e) {
-      console.warn("Audio creation failed, falling back to Web Speech:", e);
-      this.synthesizeVoice(textToSpeak);
-    }
-  }
-
-  /**
-   * Web Speech API Fallback with anti-garbage-collection and proper language pairing
-   */
-  synthesizeVoice(text) {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      divineAudio.restoreVolume();
-      return;
-    }
-
-    try {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.resume();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      // Keep global reference to prevent Chrome V8 garbage collector from dropping speech
-      window.__activeKrishnaUtterance = utterance;
-
-      const voices = window.speechSynthesis.getVoices();
-      let selectedVoice = null;
-
-      if (voices && voices.length > 0) {
-        // Look for Indian English/Hindi voice first
-        selectedVoice = voices.find(v => v.lang.startsWith('hi') || v.lang === 'en-IN');
-        // Otherwise look for natural female voice as base for child pitch
-        if (!selectedVoice) {
-          selectedVoice = voices.find(v => /zira|female|natural|samantha/i.test(v.name));
-        }
-        if (!selectedVoice) {
-          selectedVoice = voices[0];
-        }
-      }
-
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-        utterance.lang = selectedVoice.lang; // Must match voice to prevent Windows SAPI rejection
-      }
-
-      utterance.pitch = CONFIG.KRISHNA_VOICE.PITCH || 1.45; // Child-like divine pitch
-      utterance.rate = CONFIG.KRISHNA_VOICE.RATE || 0.95;
-      utterance.volume = 1.0;
-
-      utterance.onend = () => {
-        window.__activeKrishnaUtterance = null;
-        this.isSpeaking = false;
-        divineAudio.restoreVolume();
-      };
-
-      utterance.onerror = (e) => {
-        console.warn("Speech synthesis notice:", e);
-        window.__activeKrishnaUtterance = null;
-        this.isSpeaking = false;
-        divineAudio.restoreVolume();
-      };
-
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      console.error("Speech synthesis failed:", e);
       divineAudio.restoreVolume();
     }
   }

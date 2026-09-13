@@ -60,6 +60,8 @@ class LaunchApp {
       btnResetState: document.getElementById('btn-reset-state'),
       volumeSlider: document.getElementById('operator-volume-slider'),
       btnMute: document.getElementById('btn-toggle-mute'),
+      pitchSlider: document.getElementById('operator-pitch-slider'),
+      labelKrishnaPitch: document.getElementById('label-krishna-pitch'),
       portalUrlInput: document.getElementById('input-portal-url')
     };
 
@@ -153,6 +155,17 @@ class LaunchApp {
       this.dom.btnMute.addEventListener('click', () => {
         const isMuted = divineAudio.toggleMute();
         this.dom.btnMute.innerText = isMuted ? '🔇 Unmute Sound' : '🔊 Mute Sound';
+      });
+    }
+
+    // Little Krishna Cartoon Pitch Slider
+    if (this.dom.pitchSlider) {
+      this.dom.pitchSlider.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        littleKrishnaVoice.setPitch(val);
+        if (this.dom.labelKrishnaPitch) {
+          this.dom.labelKrishnaPitch.innerText = `${val.toFixed(2)}x (${val >= 1.3 ? 'Cartoon Child' : 'Soft Child'})`;
+        }
       });
     }
 
