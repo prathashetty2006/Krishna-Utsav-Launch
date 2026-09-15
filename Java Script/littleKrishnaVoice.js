@@ -8,7 +8,7 @@
  * - Harmonious divine sparkle chime intro (D6 - G6 - B6) with WebKit positive-ramp protection
  * - Pitch modulation (1.32x) with vendor-prefixed webkitPreservesPitch overrides for Safari
  * - Automatic 3-tier cascade: Web Audio API -> HTMLAudioElement -> Native Web Speech API
- * - Smart multi-lingual speech synthesis fallback (Hindi 'Lekha' / English child pitch) so it ALWAYS wishes properly
+ * - Smart multi-lingual speech synthesis fallback (Kannada 'kn-IN' / Hindi 'Lekha' / English child pitch) so it ALWAYS wishes properly
  * - Dynamic audio ducking of background flute music and single-call safety onEnded callback
  */
 import { CONFIG } from './config.js';
@@ -85,7 +85,7 @@ class LittleKrishnaVoiceEngine {
     try {
       if (!this.fallbackAudio && typeof Audio !== 'undefined') {
         const defaultPath = (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH) ||
-          "../Image and Audio/audio/little_krishna_welcome_hindi.mp3";
+          "../Image and Audio/audio/little_krishna_welcome_kannada.mp3";
         this.fallbackAudio = new Audio(encodeURI(defaultPath));
         this.fallbackAudio.preload = 'auto';
         this.fallbackAudio.load();
@@ -144,6 +144,8 @@ class LittleKrishnaVoiceEngine {
     this._preloadPromise = (async () => {
       const candidates = [
         (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH),
+        "../Image and Audio/audio/little_krishna_welcome_kannada.mp3",
+        "../Image and Audio/audio/little_krishna_kannada.mp3",
         "../Image and Audio/audio/little_krishna_welcome_hindi.mp3",
         "../Image and Audio/audio/little_krishna_hindi.mp3",
         "../Image and Audio/audio/little_krishna_voice.wav",
@@ -346,7 +348,7 @@ class LittleKrishnaVoiceEngine {
     // =========================================================================
     const audioPath = this.activeAudioPath ||
       (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH) ||
-      "../Image and Audio/audio/little_krishna_welcome_hindi.mp3";
+      "../Image and Audio/audio/little_krishna_welcome_kannada.mp3";
 
     try {
       this.stopGreeting();
@@ -414,15 +416,20 @@ class LittleKrishnaVoiceEngine {
       let selectedVoice = null;
 
       if (voices && voices.length > 0) {
-        // 1. Prefer Hindi voices (macOS has native 'Lekha', Chrome has Google हिन्दी)
-        selectedVoice = voices.find(v => v.lang.startsWith('hi') || /lekha|hindi/i.test(v.name));
+        // 1. Prefer Kannada voices (Chrome / Android / Windows kn-IN)
+        selectedVoice = voices.find(v => v.lang.startsWith('kn') || /kannada/i.test(v.name));
 
-        // 2. Prefer Indian English voices (Rishi, Sangeeta, Veena)
+        // 2. Fallback to Hindi voices
         if (!selectedVoice) {
-          selectedVoice = voices.find(v => v.lang === 'en-IN' || /rishi|sangeeta|heera|veena/i.test(v.name));
+          selectedVoice = voices.find(v => v.lang.startsWith('hi') || /lekha|hindi/i.test(v.name));
         }
 
-        // 3. Prefer natural, youthful female voices for child pitch base on macOS/iOS
+        // 3. Prefer Indian English voices (Rishi, Sangeeta, Veena, Neerja)
+        if (!selectedVoice) {
+          selectedVoice = voices.find(v => v.lang === 'en-IN' || /rishi|sangeeta|heera|veena|neerja/i.test(v.name));
+        }
+
+        // 4. Prefer natural, youthful female voices for child pitch base on macOS/iOS
         if (!selectedVoice) {
           selectedVoice = voices.find(v => /samantha|victoria|karen|tessa|flo|sandy|natural/i.test(v.name));
         }
@@ -436,8 +443,10 @@ class LittleKrishnaVoiceEngine {
         utterance.voice = selectedVoice;
         utterance.lang = selectedVoice.lang;
 
-        // If only an English voice is available, speak the English greeting so it doesn't sound broken
-        if (!selectedVoice.lang.startsWith('hi') && /[\u0900-\u097F]/.test(text)) {
+        // If only an English/non-Indic voice is available and text has Kannada/Devanagari characters, speak the English greeting so it doesn't sound broken
+        const isIndicVoice = selectedVoice.lang.startsWith('kn') || selectedVoice.lang.startsWith('hi');
+        const hasIndicScript = /[\u0C80-\u0CFF\u0900-\u097F]/.test(text);
+        if (!isIndicVoice && hasIndicScript) {
           utterance.text = (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.RESPONSE_TEXT_ENGLISH) ||
             "Jai Shri Krishna! Welcome to the Krishna Utsav.";
         }

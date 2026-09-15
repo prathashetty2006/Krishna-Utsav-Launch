@@ -33,6 +33,7 @@ Website Lonch 16/
 │   │   └── sacred_mandala.svg           # Sacred Rotating 16-Petal Vedic Mandala
 │   └── audio/
 │       ├── krishna_flute.mp3            # Official Devotional Krishna Flute Audio
+│       ├── little_krishna_welcome_kannada.mp3 # Official Little Krishna Welcome Voice in Kannada
 │       └── Little Krishna Voice.mp3     # Authentic Little Krishna Animated Series Voice Reference
 └── Documentation/
     └── AUDITORIUM_OPERATOR_GUIDE.md     # This comprehensive guide

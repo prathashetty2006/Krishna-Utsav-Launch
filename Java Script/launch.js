@@ -3,11 +3,11 @@
  * Glues state machine, speech recognition, celebration visual engine,
  * audio system, and operator controls.
  */
-import { CONFIG } from './config.js?v=bouncy2026';
+import { CONFIG } from './config.js?v=kannada2026';
 import { divineAudio } from './audio.js?v=bouncy2026';
 import { VoiceRecognitionEngine } from './speech.js?v=bouncy2026';
 import { CelebrationEngine } from './celebration.js?v=bouncy2026';
-import { littleKrishnaVoice } from './littleKrishnaVoice.js?v=macvoice2026';
+import { littleKrishnaVoice } from './littleKrishnaVoice.js?v=kannada2026';
 
 class LaunchApp {
   constructor() {
