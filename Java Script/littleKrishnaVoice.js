@@ -21,7 +21,9 @@ class LittleKrishnaVoiceEngine {
     this.currentSource = null;
     this.fallbackAudio = null;
     this.isSpeaking = false;
-    this.pitchRate = (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.CARTOON_PITCH) || 1.32;
+    this.pitchRate = (CONFIG.KRISHNA_VOICE && typeof CONFIG.KRISHNA_VOICE.CARTOON_PITCH === 'number')
+      ? CONFIG.KRISHNA_VOICE.CARTOON_PITCH
+      : 1.0;
     this.activeAudioPath = null;
     this._unlocked = false;
     this._preloadPromise = null;
@@ -85,7 +87,7 @@ class LittleKrishnaVoiceEngine {
     try {
       if (!this.fallbackAudio && typeof Audio !== 'undefined') {
         const defaultPath = (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH) ||
-          "../Image and Audio/audio/little_krishna_welcome_kannada.mp3";
+          "../Image and Audio/audio/Welcome.mpeg";
         this.fallbackAudio = new Audio(encodeURI(defaultPath));
         this.fallbackAudio.preload = 'auto';
         this.fallbackAudio.load();
@@ -94,7 +96,7 @@ class LittleKrishnaVoiceEngine {
   }
 
   setPitch(rate) {
-    this.pitchRate = Math.max(1.0, Math.min(1.6, parseFloat(rate) || 1.32));
+    this.pitchRate = Math.max(0.75, Math.min(1.6, parseFloat(rate) || 1.0));
     if (CONFIG.KRISHNA_VOICE) {
       CONFIG.KRISHNA_VOICE.CARTOON_PITCH = this.pitchRate;
     }
@@ -144,6 +146,9 @@ class LittleKrishnaVoiceEngine {
     this._preloadPromise = (async () => {
       const candidates = [
         (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH),
+        "../Image and Audio/audio/Welcome.mpeg",
+        "../Image and Audio/audio/Welcome.mp3",
+        "../Image and Audio/audio/Little Krishna Voice.mp3",
         "../Image and Audio/audio/little_krishna_welcome_kannada.mp3",
         "../Image and Audio/audio/little_krishna_kannada.mp3",
         "../Image and Audio/audio/little_krishna_welcome_hindi.mp3",
@@ -269,12 +274,15 @@ class LittleKrishnaVoiceEngine {
     };
 
     // Safety watchdog: ensure celebration timeline is never blocked if audio hangs
+    const estimatedDuration = (this.audioBuffer && this.audioBuffer.duration)
+      ? Math.round((this.audioBuffer.duration / (this.pitchRate || 1.0)) * 1000 + 3500)
+      : 9000;
     const safetyWatchdog = setTimeout(() => {
       if (!callbackFired) {
         console.warn("Little Krishna speech watchdog elapsed; releasing celebration sequence.");
         safeComplete();
       }
-    }, 7000);
+    }, estimatedDuration);
 
     const ctx = this.getAudioContext();
 
@@ -302,19 +310,19 @@ class LittleKrishnaVoiceEngine {
 
           const source = ctx.createBufferSource();
           source.buffer = this.audioBuffer;
-          source.playbackRate.value = this.pitchRate; // Child vocal modulation
+          source.playbackRate.value = this.pitchRate;
 
-          // High-pass filter (180 Hz): eliminates auditorium stage sub-rumble
+          // High-pass filter (90 Hz): eliminates stage sub-rumble while keeping vocal warmth & resonance
           const highPass = ctx.createBiquadFilter();
           highPass.type = 'highpass';
-          highPass.frequency.value = 180;
+          highPass.frequency.value = 90;
 
-          // Peaking filter (3400 Hz, +4.0dB): adds crystal-clear vocal projection
+          // Peaking filter (3000 Hz, +2.5dB): adds crisp vocal projection across auditorium speakers
           const presenceBoost = ctx.createBiquadFilter();
           presenceBoost.type = 'peaking';
-          presenceBoost.frequency.value = 3400;
-          presenceBoost.Q.value = 1.1;
-          presenceBoost.gain.value = 4.0;
+          presenceBoost.frequency.value = 3000;
+          presenceBoost.Q.value = 1.0;
+          presenceBoost.gain.value = 2.5;
 
           // Master voice gain
           const gainNode = ctx.createGain();
@@ -348,7 +356,7 @@ class LittleKrishnaVoiceEngine {
     // =========================================================================
     const audioPath = this.activeAudioPath ||
       (CONFIG.KRISHNA_VOICE && CONFIG.KRISHNA_VOICE.AUDIO_CLIP_PATH) ||
-      "../Image and Audio/audio/little_krishna_welcome_kannada.mp3";
+      "../Image and Audio/audio/Welcome.mpeg";
 
     try {
       this.stopGreeting();

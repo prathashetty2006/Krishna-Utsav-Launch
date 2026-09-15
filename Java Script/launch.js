@@ -169,7 +169,7 @@ class LaunchApp {
         const val = parseFloat(e.target.value);
         littleKrishnaVoice.setPitch(val);
         if (this.dom.labelKrishnaPitch) {
-          const descriptor = val >= 1.30 ? 'Energetic Child' : (val >= 1.15 ? 'Soft Child' : 'Natural');
+          const descriptor = val >= 1.30 ? 'Energetic Child' : (val >= 1.15 ? 'Soft Child' : (val > 1.03 ? 'Mild Modulation' : 'Natural Voice'));
           this.dom.labelKrishnaPitch.innerText = `${val.toFixed(2)}x (${descriptor})`;
         }
       });

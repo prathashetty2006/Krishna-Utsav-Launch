@@ -46,12 +46,12 @@ export const CONFIG = {
     CUE_PATH: "../Image and Audio/audio/krishna_flute.mp3"
   },
 
-  // Little Krishna Voice Greeting Settings (Authentic Kannada Little Krishna Character Voice)
+  // Little Krishna Voice Greeting Settings (Manually Recorded Welcome Voice)
   KRISHNA_VOICE: {
     ENABLED: true,
     RESPONSE_TEXT: "ಜೈ ಶ್ರೀ ಕೃಷ್ಣ! ಕೃಷ್ಣ ಉತ್ಸವಕ್ಕೆ ನಿಮಗೆಲ್ಲರಿಗೂ ಸ್ವಾಗತ.",
     RESPONSE_TEXT_ENGLISH: "Jai Shri Krishna! Welcome to the Krishna Utsav.",
-    CARTOON_PITCH: 1.32, // 1.32x child pitch modulation matching Little Krishna character
-    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_welcome_kannada.mp3"
+    CARTOON_PITCH: 1.0, // 1.0x for natural authentic recorded voice (adjustable from operator drawer)
+    AUDIO_CLIP_PATH: "../Image and Audio/audio/Welcome.mpeg"
   }
 };
