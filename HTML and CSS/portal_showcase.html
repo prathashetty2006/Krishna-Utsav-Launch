@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <base href="https://krishna-utsav-2026.vercel.app/">
+    <base href="https://krishna-utsav-2026.vercel.app/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -28,6 +28,12 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="HTML and CSS/index.css">
+    <style>
+        /* Prevent browser native CSS smooth-scroll fighting with programmatic auto-scroll */
+        html {
+            scroll-behavior: auto !important;
+        }
+    </style>
 
     <!-- JS -->
     <script src="Java Script/index.js" defer></script>
@@ -632,8 +638,8 @@
             <div class="carousel-viewport">
                 <div id="galleryContainer" class="slider-track">
                     <div class="gallery-card reveal-scale">
-                        <img src="Image and Audio/gallery-inauguration.jpeg"
-                            alt="Inaugural Lamp Lighting & Dignitaries" loading="lazy">
+                        <img src="Image and Audio/gallery-inauguration.jpeg" alt="Inaugural Lamp Lighting & Dignitaries"
+                            loading="lazy">
                         <div class="gallery-card-overlay">
                             <span class="gallery-card-tag"><i class="fa-solid fa-om"></i> Inauguration</span>
                             <h4>Lamp Lighting Ceremony</h4>
@@ -733,101 +739,124 @@
     </button>
 
 
-<!-- Background Audio Autoplay Engine & Smooth Auditorium Auto-Scroll Showcase -->
-<script>
-(function() {
-  // 1. Automatic Background Song Playback Engine
-  const music = document.getElementById("bgMusic");
-  if (music) {
-    music.volume = 0.9;
+    <!-- Background Audio Autoplay Engine & Smooth Auditorium Auto-Scroll Showcase -->
+    <script>
+        (function () {
+            // 1. Automatic Background Song Playback Engine
+            const music = document.getElementById("bgMusic");
+            if (music) {
+                music.volume = 0.9;
 
-    function playBgMusic() {
-      const p = music.play();
-      if (p !== undefined) {
-        p.then(() => {
-          console.log("Background song started automatically.");
-        }).catch(err => {
-          console.log("Autoplay waiting for initial interaction:", err.message);
-        });
-      }
-    }
+                function playBgMusic() {
+                    const p = music.play();
+                    if (p !== undefined) {
+                        p.then(() => {
+                            console.log("Background song started automatically.");
+                        }).catch(err => {
+                            console.log("Autoplay waiting for initial interaction:", err.message);
+                        });
+                    }
+                }
 
-    // Try immediately when page is opening
-    playBgMusic();
-    document.addEventListener("DOMContentLoaded", playBgMusic);
-    window.addEventListener("load", playBgMusic);
+                // Try immediately when page is opening
+                playBgMusic();
+                document.addEventListener("DOMContentLoaded", playBgMusic);
+                window.addEventListener("load", playBgMusic);
 
-    // Fallback: start immediately on any user action (mouse move, click, key, touch, scroll)
-    const gestureEvents = ["click", "keydown", "touchstart", "mousemove", "wheel", "scroll"];
-    function onUserGesture() {
-      playBgMusic();
-      if (!music.paused) {
-        gestureEvents.forEach(evt => window.removeEventListener(evt, onUserGesture));
-      }
-    }
-    gestureEvents.forEach(evt => window.addEventListener(evt, onUserGesture, { passive: true }));
-  }
+                // Fallback: start immediately on any user action (mouse move, click, key, touch, scroll)
+                const gestureEvents = ["click", "keydown", "touchstart", "mousemove", "wheel", "scroll"];
+                function onUserGesture() {
+                    playBgMusic();
+                    if (!music.paused) {
+                        gestureEvents.forEach(evt => window.removeEventListener(evt, onUserGesture));
+                    }
+                }
+                gestureEvents.forEach(evt => window.addEventListener(evt, onUserGesture, { passive: true }));
+            }
 
-  // 2. Smooth Auditorium Auto-Scroll Engine
-  let isPaused = false;
-  let isAtBottom = false;
-  let scrollSpeed = 1.1; // Smooth presentation speed in px/frame
-  let userScrollTimeout = null;
+            // 2. Ultra-Smooth Auditorium Auto-Scroll Engine (Jitter-Free Delta-Time)
+            let isPaused = false;
+            let isAtBottom = false;
+            let scrollSpeed = 2.2; // Presentation speed in px/frame (2X speed, baseline was 1.1)
+            let userScrollTimeout = null;
+            let lastTimestamp = null;
+            let currentScrollY = window.scrollY || window.pageYOffset || 0;
 
-  function autoScrollLoop() {
-    if (!isPaused && !isAtBottom) {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (window.scrollY + scrollSpeed >= maxScroll - 2) {
-        window.scrollTo({ top: maxScroll, behavior: 'auto' });
-        isAtBottom = true;
-        
-        // Pause at bottom for 4.5 seconds for audience to view footer/contact
-        setTimeout(() => {
-          // Smoothly scroll back to top over 2.5 seconds
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          // Wait at top for 2 seconds then resume downward scroll
-          setTimeout(() => {
-            isAtBottom = false;
-          }, 2500);
-        }, 4500);
-      } else {
-        window.scrollBy(0, scrollSpeed);
-      }
-    }
-    requestAnimationFrame(autoScrollLoop);
-  }
+            // Target speed in pixels per second (2.2 * 60 = 132 px/s)
+            // Using requestAnimationFrame delta-time guarantees smooth 60fps/120fps/144fps motion without stutter
+            const getSpeedPxPerSec = () => scrollSpeed * 60;
 
-  // Allow manual pause/resume via Spacebar
-  window.addEventListener('keydown', function(e) {
-    if (e.code === 'Space') {
-      e.preventDefault();
-      isPaused = !isPaused;
-    }
-  });
+            function autoScrollLoop(timestamp) {
+                if (!lastTimestamp) lastTimestamp = timestamp;
+                const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05); // Cap to 50ms to prevent jumping
+                lastTimestamp = timestamp;
 
-  // When user manually scrolls with wheel or touch, temporarily pause auto-scroll for 3.5s
-  window.addEventListener('wheel', function() {
-    isPaused = true;
-    clearTimeout(userScrollTimeout);
-    userScrollTimeout = setTimeout(function() {
-      isPaused = false;
-    }, 3500);
-  }, { passive: true });
+                if (!isPaused && !isAtBottom) {
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    
+                    currentScrollY += getSpeedPxPerSec() * dt;
 
-  window.addEventListener('touchstart', function() {
-    isPaused = true;
-    clearTimeout(userScrollTimeout);
-    userScrollTimeout = setTimeout(function() {
-      isPaused = false;
-    }, 3500);
-  }, { passive: true });
+                    if (currentScrollY >= maxScroll - 2) {
+                        currentScrollY = maxScroll;
+                        window.scrollTo(0, maxScroll);
+                        isAtBottom = true;
 
-  // Start auto-scroll after initial 2s pause to showcase Hero header
-  setTimeout(function() {
-    requestAnimationFrame(autoScrollLoop);
-  }, 2000);
-})();
-</script>
+                        // Pause at bottom for 4.5 seconds for audience to view footer/contact
+                        setTimeout(() => {
+                            // Smoothly scroll back to top
+                            document.documentElement.style.scrollBehavior = 'smooth';
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            
+                            // Wait at top for 2 seconds then resume downward scroll
+                            setTimeout(() => {
+                                document.documentElement.style.scrollBehavior = 'auto';
+                                currentScrollY = 0;
+                                lastTimestamp = null;
+                                isAtBottom = false;
+                            }, 2500);
+                        }, 4500);
+                    } else {
+                        window.scrollTo(0, currentScrollY);
+                    }
+                }
+                requestAnimationFrame(autoScrollLoop);
+            }
+
+            // Allow manual pause/resume via Spacebar
+            window.addEventListener('keydown', function (e) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    isPaused = !isPaused;
+                    if (!isPaused) {
+                        currentScrollY = window.scrollY || window.pageYOffset || 0;
+                        lastTimestamp = null;
+                    }
+                }
+            });
+
+            // When user manually scrolls with wheel or touch, temporarily pause auto-scroll for 3.5s
+            function onUserScrollInteraction() {
+                isPaused = true;
+                currentScrollY = window.scrollY || window.pageYOffset || 0;
+                clearTimeout(userScrollTimeout);
+                userScrollTimeout = setTimeout(function () {
+                    currentScrollY = window.scrollY || window.pageYOffset || 0;
+                    lastTimestamp = null;
+                    isPaused = false;
+                }, 3500);
+            }
+
+            window.addEventListener('wheel', onUserScrollInteraction, { passive: true });
+            window.addEventListener('touchstart', onUserScrollInteraction, { passive: true });
+
+            // Start auto-scroll after initial 2s pause to showcase Hero header
+            setTimeout(function () {
+                currentScrollY = window.scrollY || window.pageYOffset || 0;
+                lastTimestamp = null;
+                requestAnimationFrame(autoScrollLoop);
+            }, 2000);
+        })();
+    </script>
 
 </body>
 
