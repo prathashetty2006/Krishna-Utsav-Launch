@@ -23,6 +23,7 @@ Website Lonch 16/
 │   ├── audio.js                         # Web Audio API Synthesizer (Bansuri, Shankhnad, Ghanti)
 │   ├── speech.js                        # Web Speech API Recognition & Conservative Matching
 │   ├── celebration.js                   # Canvas Particle Burst, Peacock Feathers, Staggered Reveal
+│   ├── littleKrishnaVoice.js            # Authentic Little Krishna Animated Voice Engine (DSP & Ducking)
 │   └── launch.js                        # State Machine, Hotkey Bindings & Operator Drawer
 ├── Image and Audio/
 │   ├── images/
@@ -31,7 +32,8 @@ Website Lonch 16/
 │   │   ├── peacock_feather.png          # Royal Peacock Feather (Favicon)
 │   │   └── sacred_mandala.svg           # Sacred Rotating 16-Petal Vedic Mandala
 │   └── audio/
-│       └── krishna_flute.mp3            # Official Devotional Krishna Flute Audio
+│       ├── krishna_flute.mp3            # Official Devotional Krishna Flute Audio
+│       └── Little Krishna Voice.mp3     # Authentic Little Krishna Animated Series Voice Reference
 └── Documentation/
     └── AUDITORIUM_OPERATOR_GUIDE.md     # This comprehensive guide
 ```

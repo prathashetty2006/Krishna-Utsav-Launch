@@ -7,7 +7,7 @@ import { CONFIG } from './config.js?v=bouncy2026';
 import { divineAudio } from './audio.js?v=bouncy2026';
 import { VoiceRecognitionEngine } from './speech.js?v=bouncy2026';
 import { CelebrationEngine } from './celebration.js?v=bouncy2026';
-import { littleKrishnaVoice } from './littleKrishnaVoice.js?v=bouncy2026';
+import { littleKrishnaVoice } from './littleKrishnaVoice.js?v=macvoice2026';
 
 class LaunchApp {
   constructor() {
@@ -99,6 +99,7 @@ class LaunchApp {
     if (this.dom.micButton) {
       this.dom.micButton.addEventListener('click', () => {
         divineAudio.initContext();
+        littleKrishnaVoice.initContext();
         if (this.speech.isListening) {
           this.speech.stopListening();
           this.updateUIState('IDLE');
@@ -112,6 +113,7 @@ class LaunchApp {
     if (this.dom.manualLaunchBtn) {
       this.dom.manualLaunchBtn.addEventListener('click', () => {
         divineAudio.initContext();
+        littleKrishnaVoice.initContext();
         this.triggerInauguration("Manual Trigger / Operator Launch");
       });
     }
@@ -127,17 +129,20 @@ class LaunchApp {
     // Operator Test Buttons
     if (this.dom.btnSimulateVoice) {
       this.dom.btnSimulateVoice.addEventListener('click', () => {
+        littleKrishnaVoice.initContext();
         this.onSacredPhraseHeard("jai shree krishna (simulated)");
       });
     }
     if (this.dom.btnTestKrishnaVoice) {
       this.dom.btnTestKrishnaVoice.addEventListener('click', () => {
+        littleKrishnaVoice.initContext();
         littleKrishnaVoice.speakGreeting();
       });
     }
     if (this.dom.btnTestAudio) {
       this.dom.btnTestAudio.addEventListener('click', () => {
         divineAudio.initContext();
+        littleKrishnaVoice.initContext();
         divineAudio.playCelebrationCue();
       });
     }
@@ -158,13 +163,14 @@ class LaunchApp {
       });
     }
 
-    // Little Krishna Cartoon Pitch Slider
+    // Little Krishna Voice Tone Control
     if (this.dom.pitchSlider) {
       this.dom.pitchSlider.addEventListener('input', (e) => {
         const val = parseFloat(e.target.value);
         littleKrishnaVoice.setPitch(val);
         if (this.dom.labelKrishnaPitch) {
-          this.dom.labelKrishnaPitch.innerText = `${val.toFixed(2)}x (${val >= 1.3 ? 'Cartoon Child' : 'Soft Child'})`;
+          const descriptor = val >= 1.30 ? 'Energetic Child' : (val >= 1.15 ? 'Soft Child' : 'Natural');
+          this.dom.labelKrishnaPitch.innerText = `${val.toFixed(2)}x (${descriptor})`;
         }
       });
     }
@@ -177,10 +183,12 @@ class LaunchApp {
       if (e.code === 'Space' || e.code === 'Enter') {
         e.preventDefault();
         divineAudio.initContext();
+        littleKrishnaVoice.initContext();
         this.triggerInauguration("Auditorium Hotkey Launch [Space/Enter]");
       } else if (e.key === 'm' || e.key === 'M') {
         e.preventDefault();
         divineAudio.initContext();
+        littleKrishnaVoice.initContext();
         if (this.speech.isListening) {
           this.speech.stopListening();
           this.updateUIState('IDLE');

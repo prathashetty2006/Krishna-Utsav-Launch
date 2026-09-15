@@ -163,7 +163,8 @@ export class CelebrationEngine {
   }
 
   /**
-   * Orchestrates the 7.5s inauguration sequence matching Master Plan Timeline
+   * Orchestrates the inauguration sequence matching Master Plan Timeline
+   * and synchronizes portal transition adaptively after Little Krishna speaks
    */
   startCelebrationSequence(onComplete = () => {}) {
     if (this.isCelebrationActive) return;
@@ -176,39 +177,62 @@ export class CelebrationEngine {
     document.body.classList.add('celebration-started');
     this.triggerDivineBurst();
 
+    let portalTriggered = false;
+    const triggerPortalTransition = () => {
+      if (portalTriggered || !this.isCelebrationActive) return;
+      portalTriggered = true;
+
+      // Respectful 0.8s breath/resonance after Little Krishna concludes his greeting
+      setTimeout(() => {
+        if (!this.isCelebrationActive) return;
+        if (this.portalTransitionEl) {
+          this.portalTransitionEl.classList.add('active');
+        }
+        if (this.portalStatusEl) {
+          this.portalStatusEl.innerText = "Entering Krishna-Utsav Portal...";
+        }
+
+        // Final Navigation / Portal Gateway Reveal
+        setTimeout(() => {
+          if (this.isCelebrationActive) {
+            onComplete();
+          }
+        }, 2200);
+      }, 800);
+    };
+
     // Stage 3: Sacred Phrase "JAI SHREE KRISHNA" Reveal (Timeline 3.0s)
     setTimeout(() => {
+      if (!this.isCelebrationActive) return;
+
       if (this.revealOverlay) {
         this.revealOverlay.classList.add('visible');
       }
       if (this.sacredPhraseEl) {
         this.sacredPhraseEl.classList.add('animate-reveal');
       }
+
       // Divine Child Return Greeting: Little Krishna speaks back to the guest
-      littleKrishnaVoice.speakGreeting();
+      littleKrishnaVoice.speakGreeting(() => {
+        triggerPortalTransition();
+      });
     }, CONFIG.TIMINGS.SACRED_PHRASE_REVEAL);
 
     // Stage 4: Event Identity "KRISHNA-UTSAV 2K26" Reveal (Timeline 4.5s)
     setTimeout(() => {
+      if (!this.isCelebrationActive) return;
       if (this.eventIdentityEl) {
         this.eventIdentityEl.classList.add('animate-reveal');
       }
     }, CONFIG.TIMINGS.EVENT_IDENTITY_REVEAL);
 
-    // Stage 5: Portal Light Cover Transition (Timeline 6.2s)
+    // Safety Fallback: Guarantee transition if audio is muted or speech callback fails
+    const fallbackDelay = (CONFIG.TIMINGS && CONFIG.TIMINGS.PORTAL_TRANSITION_START) || 15200;
     setTimeout(() => {
-      if (this.portalTransitionEl) {
-        this.portalTransitionEl.classList.add('active');
+      if (!portalTriggered && this.isCelebrationActive) {
+        triggerPortalTransition();
       }
-      if (this.portalStatusEl) {
-        this.portalStatusEl.innerText = "Entering Krishna-Utsav Portal...";
-      }
-    }, CONFIG.TIMINGS.PORTAL_TRANSITION_START);
-
-    // Stage 6: Final Navigation / Complete (Timeline 7.8s)
-    setTimeout(() => {
-      onComplete();
-    }, CONFIG.TIMINGS.PORTAL_NAVIGATE);
+    }, fallbackDelay);
   }
 
   /**
@@ -218,6 +242,7 @@ export class CelebrationEngine {
     this.isCelebrationActive = false;
     document.body.classList.remove('celebration-started');
 
+    littleKrishnaVoice.stopGreeting();
     if (window.speechSynthesis) window.speechSynthesis.cancel();
     divineAudio.restoreVolume();
 

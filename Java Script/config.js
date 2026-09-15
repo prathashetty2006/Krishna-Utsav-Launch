@@ -35,8 +35,8 @@ export const CONFIG = {
     PARTICLES_START: 2500,
     SACRED_PHRASE_REVEAL: 3000,
     EVENT_IDENTITY_REVEAL: 4500,
-    PORTAL_TRANSITION_START: 7200,
-    PORTAL_NAVIGATE: 9500
+    PORTAL_TRANSITION_START: 8800, // Dynamic fallback if audio event not available
+    PORTAL_NAVIGATE: 11000
   },
 
   // Audio Settings
@@ -46,12 +46,12 @@ export const CONFIG = {
     CUE_PATH: "../Image and Audio/audio/krishna_flute.mp3"
   },
 
-  // Little Krishna Voice Greeting Settings (Authentic Hindi & Cartoon Child Modulation)
+  // Little Krishna Voice Greeting Settings (Authentic Hindi Little Krishna Character Voice)
   KRISHNA_VOICE: {
     ENABLED: true,
     RESPONSE_TEXT: "जय श्री कृष्णा! कृष्णा उत्सव में आपका स्वागत है",
     RESPONSE_TEXT_ENGLISH: "Jai Shri Krishna! Welcome to the Krishna Utsav.",
-    CARTOON_PITCH: 1.32,
-    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_hindi.mp3"
+    CARTOON_PITCH: 1.32, // 1.32x child pitch modulation matching Little Krishna character
+    AUDIO_CLIP_PATH: "../Image and Audio/audio/little_krishna_welcome_hindi.mp3"
   }
 };
