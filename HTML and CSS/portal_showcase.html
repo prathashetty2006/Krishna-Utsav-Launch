@@ -28,10 +28,223 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="HTML and CSS/index.css">
-    <style>
-        /* Prevent browser native CSS smooth-scroll fighting with programmatic auto-scroll */
-        html {
+    <!-- Hardware & Display Engine for Apple MacBook Air M4 (13.6" Liquid Retina 2560x1664 @ 224 PPI, P3) -->
+    <style id="m4-liquid-retina-engine">
+        /* 1. Eliminate scroll-behavior fighting & overscroll rubberband interference on macOS WebKit/Chromium */
+        html, body {
             scroll-behavior: auto !important;
+            overscroll-behavior-y: none !important;
+            -webkit-overflow-scrolling: auto !important;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 2. Apple M4 Display P3 Wide Color Gamut & 500 Nits Vibrancy Tuning */
+        @media (color-gamut: p3) {
+            :root {
+                --primary: color(display-p3 0.051 0.137 0.243);
+                --primary-light: color(display-p3 0.09 0.227 0.415);
+                --secondary: color(display-p3 0.776 0.631 0.357);
+                --secondary-dark: color(display-p3 0.549 0.345 0.043);
+                --gold-text: color(display-p3 0.51 0.31 0.02);
+                --gold-light-text: color(display-p3 1 0.835 0.42);
+                --peacock: color(display-p3 0.039 0.388 0.361);
+            }
+        }
+
+        /* 3. GPU Compositing Layer Promotion for 2560x1664 Liquid Retina (Zero-Repaint Scrolling) */
+        .global-page-bg {
+            position: fixed !important;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            contain: strict;
+            isolation: isolate;
+        }
+
+        .global-page-bg img {
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .header {
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .corner-ornament,
+        .bg-peacock-feather-1,
+        .bg-peacock-feather-2 {
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* 4. Isolated Section Painting (Prevents cascaded repaints across sections) */
+        section {
+            contain: layout style;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        .hero-image,
+        .divine-halo,
+        .divine-halo-outer,
+        .divine-halo-inner,
+        .divine-aura,
+        .mandala,
+        .spiritual-glow-bg,
+        .light-rays {
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* 5. Smooth GPU-accelerated reveals without layout thrashing */
+        .reveal,
+        .reveal-left,
+        .reveal-right,
+        .reveal-scale {
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .event-card,
+        .timeline-item,
+        .gallery-card,
+        .stat-card {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* 6. Auditorium Presentation HUD Indicator & Controls */
+        .m4-showcase-hud {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(13, 35, 62, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(198, 161, 91, 0.45);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 15px rgba(198, 161, 91, 0.2);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+        }
+
+        .m4-showcase-hud:hover {
+            background: rgba(13, 35, 62, 0.96);
+            border-color: rgba(198, 161, 91, 0.75);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 20px rgba(198, 161, 91, 0.3);
+        }
+
+        .m4-hud-status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: m4Pulse 2s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        .m4-hud-status-dot.paused {
+            background: #f59e0b;
+            box-shadow: 0 0 10px #f59e0b;
+            animation: none;
+        }
+
+        @keyframes m4Pulse {
+            0%, 100% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .m4-hud-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        .m4-hud-title {
+            font-weight: 600;
+            color: #ffd56b;
+            letter-spacing: 0.5px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .m4-hud-sub {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .m4-hud-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 6px;
+            border-left: 1px solid rgba(198, 161, 91, 0.25);
+            padding-left: 10px;
+        }
+
+        .m4-hud-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(198, 161, 91, 0.3);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .m4-hud-btn:hover {
+            background: rgba(198, 161, 91, 0.25);
+            border-color: #ffd56b;
+            color: #ffd56b;
+            transform: translateY(-1px);
+        }
+
+        .m4-hud-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .m4-showcase-hud {
+                left: 12px;
+                bottom: 16px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .m4-hud-sub {
+                display: none;
+            }
         }
     </style>
 
@@ -738,32 +951,50 @@
         <i class="fa-solid fa-chevron-up"></i>
     </button>
 
+    <!-- Apple M4 Liquid Retina Auditorium Showcase HUD -->
+    <div class="m4-showcase-hud" id="m4ShowcaseHud" role="status" aria-live="polite">
+        <div class="m4-hud-status-dot" id="m4HudDot"></div>
+        <div class="m4-hud-info">
+            <span class="m4-hud-title">Liquid Retina Auto-Scroll</span>
+            <span class="m4-hud-sub" id="m4HudSub">Apple M4 2560×1664 @ 60Hz</span>
+        </div>
+        <div class="m4-hud-controls">
+            <button class="m4-hud-btn" id="m4ToggleBtn" title="Play / Pause Auto-Scroll (Spacebar)">
+                <i class="fa-solid fa-pause" id="m4ToggleIcon"></i>
+                <span id="m4ToggleLabel">Pause</span>
+            </button>
+            <button class="m4-hud-btn" id="m4SpeedBtn" title="Cycle Presentation Speed">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span id="m4SpeedLabel">2.0×</span>
+            </button>
+        </div>
+    </div>
 
-    <!-- Background Audio Autoplay Engine & Smooth Auditorium Auto-Scroll Showcase -->
+    <!-- Apple MacBook Air M4 (13.6" Liquid Retina 2560x1664 @ 224 PPI) Ultra-Smooth Showcase Engine -->
     <script>
         (function () {
-            // 1. Automatic Background Song Playback Engine
+            'use strict';
+
+            // =========================================================================
+            // 1. Automatic Background Audio Engine
+            // =========================================================================
             const music = document.getElementById("bgMusic");
             if (music) {
                 music.volume = 0.9;
-
                 function playBgMusic() {
                     const p = music.play();
                     if (p !== undefined) {
                         p.then(() => {
-                            console.log("Background song started automatically.");
+                            console.log("M4 Audio Engine: Ambient devotional music playing.");
                         }).catch(err => {
-                            console.log("Autoplay waiting for initial interaction:", err.message);
+                            console.log("M4 Audio Engine: Waiting for user gesture:", err.message);
                         });
                     }
                 }
-
-                // Try immediately when page is opening
                 playBgMusic();
                 document.addEventListener("DOMContentLoaded", playBgMusic);
                 window.addEventListener("load", playBgMusic);
 
-                // Fallback: start immediately on any user action (mouse move, click, key, touch, scroll)
                 const gestureEvents = ["click", "keydown", "touchstart", "mousemove", "wheel", "scroll"];
                 function onUserGesture() {
                     playBgMusic();
@@ -774,90 +1005,290 @@
                 gestureEvents.forEach(evt => window.addEventListener(evt, onUserGesture, { passive: true }));
             }
 
-            // 2. Ultra-Smooth Auditorium Auto-Scroll Engine (Jitter-Free Delta-Time)
-            let isPaused = false;
-            let isAtBottom = false;
-            let scrollSpeed = 2.2; // Presentation speed in px/frame (2X speed, baseline was 1.1)
-            let userScrollTimeout = null;
-            let lastTimestamp = null;
-            let currentScrollY = window.scrollY || window.pageYOffset || 0;
-
-            // Target speed in pixels per second (2.2 * 60 = 132 px/s)
-            // Using requestAnimationFrame delta-time guarantees smooth 60fps/120fps/144fps motion without stutter
-            const getSpeedPxPerSec = () => scrollSpeed * 60;
-
-            function autoScrollLoop(timestamp) {
-                if (!lastTimestamp) lastTimestamp = timestamp;
-                const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05); // Cap to 50ms to prevent jumping
-                lastTimestamp = timestamp;
-
-                if (!isPaused && !isAtBottom) {
-                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                    
-                    currentScrollY += getSpeedPxPerSec() * dt;
-
-                    if (currentScrollY >= maxScroll - 2) {
-                        currentScrollY = maxScroll;
-                        window.scrollTo(0, maxScroll);
-                        isAtBottom = true;
-
-                        // Pause at bottom for 4.5 seconds for audience to view footer/contact
-                        setTimeout(() => {
-                            // Smoothly scroll back to top
-                            document.documentElement.style.scrollBehavior = 'smooth';
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            
-                            // Wait at top for 2 seconds then resume downward scroll
-                            setTimeout(() => {
-                                document.documentElement.style.scrollBehavior = 'auto';
-                                currentScrollY = 0;
-                                lastTimestamp = null;
-                                isAtBottom = false;
-                            }, 2500);
-                        }, 4500);
-                    } else {
-                        window.scrollTo(0, currentScrollY);
-                    }
+            // =========================================================================
+            // 2. Zero-Reflow IntersectionObserver (Replaces Layout-Thrashing onScroll)
+            // =========================================================================
+            // High-DPI displays (like the 224 PPI M4 Liquid Retina) suffer severe stutter
+            // if getBoundingClientRect() is called inside scroll handlers.
+            // An IntersectionObserver runs off-main-thread in the browser compositor.
+            function initZeroReflowReveals() {
+                const revealElements = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale");
+                if (!("IntersectionObserver" in window)) {
+                    revealElements.forEach(el => el.classList.add("active"));
+                    return;
                 }
-                requestAnimationFrame(autoScrollLoop);
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("active");
+                            // Once activated, stop observing to release GPU memory
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: "140px 0px -40px 0px", // Pre-reveal slightly before entering viewport for seamless flow
+                    threshold: [0, 0.1]
+                });
+
+                revealElements.forEach(el => observer.observe(el));
+            }
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", initZeroReflowReveals);
+            } else {
+                initZeroReflowReveals();
             }
 
-            // Allow manual pause/resume via Spacebar
-            window.addEventListener('keydown', function (e) {
-                if (e.code === 'Space') {
-                    e.preventDefault();
-                    isPaused = !isPaused;
-                    if (!isPaused) {
-                        currentScrollY = window.scrollY || window.pageYOffset || 0;
-                        lastTimestamp = null;
+            // =========================================================================
+            // 3. GPU-Accelerated Hardware Feather Animation (Zero-Layout Reflow)
+            // =========================================================================
+            // Modifying element.style.left/top forces layout reflows on the 2560x1664 canvas.
+            // Here we override bouncing feathers with translate3d hardware compositing.
+            function initGpuPeacockFeathers() {
+                if (window.innerWidth <= 768) return;
+                const feather1 = document.querySelector(".bg-peacock-feather-1");
+                const feather2 = document.querySelector(".bg-peacock-feather-2");
+
+                function animateGpuFeather(el, speedX, speedY, startX, startY, rotSpeed) {
+                    if (!el) return;
+                    let posX = startX;
+                    let posY = startY;
+                    let dx = speedX;
+                    let dy = speedY;
+                    let rot = 0;
+
+                    // Clear any legacy top/left styles
+                    el.style.left = "0px";
+                    el.style.top = "0px";
+
+                    function tick() {
+                        const width = window.innerWidth;
+                        const height = window.innerHeight;
+                        const w = el.offsetWidth || 180;
+                        const h = el.offsetHeight || 180;
+
+                        posX += dx;
+                        posY += dy;
+                        rot += rotSpeed;
+
+                        if (posX + w >= width) {
+                            posX = Math.max(0, width - w);
+                            dx = -Math.abs(dx);
+                        } else if (posX <= 0) {
+                            posX = 0;
+                            dx = Math.abs(dx);
+                        }
+
+                        if (posY + h >= height) {
+                            posY = Math.max(0, height - h);
+                            dy = -Math.abs(dy);
+                        } else if (posY <= 0) {
+                            posY = 0;
+                            dy = Math.abs(dy);
+                        }
+
+                        el.style.transform = `translate3d(${posX}px, ${posY}px, 0) rotate(${rot}deg)`;
+                        requestAnimationFrame(tick);
                     }
+                    requestAnimationFrame(tick);
+                }
+
+                animateGpuFeather(feather1, 0.45, 0.35, 40, 80, 0.07);
+                animateGpuFeather(feather2, -0.38, 0.42, Math.max(10, window.innerWidth - 240), Math.max(10, window.innerHeight - 240), -0.05);
+            }
+            window.addEventListener("load", initGpuPeacockFeathers);
+
+            // =========================================================================
+            // 4. Apple M4 Liquid Retina Ultra-Smooth Auto-Scroll Engine
+            //    Specs: 13.6", 2560x1664, 224 PPI, 60Hz Liquid Retina, DPR = 2.0
+            // =========================================================================
+            const scrollProgress = document.getElementById("scrollProgress");
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+            const hudDot = document.getElementById("m4HudDot");
+            const hudSub = document.getElementById("m4HudSub");
+            const toggleBtn = document.getElementById("m4ToggleBtn");
+            const toggleIcon = document.getElementById("m4ToggleIcon");
+            const toggleLabel = document.getElementById("m4ToggleLabel");
+            const speedBtn = document.getElementById("m4SpeedBtn");
+            const speedLabel = document.getElementById("m4SpeedLabel");
+
+            let isPaused = false;
+            let isAtBottom = false;
+            let currentScrollY = window.scrollY || window.pageYOffset || 0;
+            let lastTimestamp = null;
+            let smoothedDt = 1 / 60; // Baseline 60Hz frame time (~0.01667s)
+            let userScrollTimeout = null;
+
+            // Speed presets: 1.0x (Gentle ~65px/s), 1.5x (Balanced ~98px/s), 2.0x (Showcase ~132px/s), 2.5x (Fast ~165px/s)
+            const speeds = [
+                { factor: 1.0, label: "1.0×", pxPerSec: 66 },
+                { factor: 1.5, label: "1.5×", pxPerSec: 99 },
+                { factor: 2.0, label: "2.0×", pxPerSec: 132 },
+                { factor: 2.5, label: "2.5×", pxPerSec: 165 }
+            ];
+            let currentSpeedIndex = 2; // Default to 2.0x (132 px/s as requested for showcase)
+
+            // Cache document dimensions to avoid synchronous forced reflows during frame ticks
+            let cachedMaxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+            function updateCachedDimensions() {
+                cachedMaxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+            }
+            window.addEventListener("resize", updateCachedDimensions, { passive: true });
+
+            // HUD UI State Updater
+            function updateHudUI() {
+                if (isPaused) {
+                    if (hudDot) hudDot.classList.add("paused");
+                    if (hudSub) hudSub.textContent = "Paused (Press Space / Button)";
+                    if (toggleIcon) toggleIcon.className = "fa-solid fa-play";
+                    if (toggleLabel) toggleLabel.textContent = "Play";
+                } else {
+                    if (hudDot) hudDot.classList.remove("paused");
+                    const sp = speeds[currentSpeedIndex];
+                    if (hudSub) hudSub.textContent = `Apple M4 2560×1664 • ${sp.label} (${Math.round(sp.pxPerSec)} px/s)`;
+                    if (toggleIcon) toggleIcon.className = "fa-solid fa-pause";
+                    if (toggleLabel) toggleLabel.textContent = "Pause";
+                }
+            }
+
+            function togglePauseState(force) {
+                if (typeof force === "boolean") {
+                    isPaused = force;
+                } else {
+                    isPaused = !isPaused;
+                }
+                if (!isPaused) {
+                    currentScrollY = window.scrollY || window.pageYOffset || 0;
+                    lastTimestamp = null;
+                }
+                updateHudUI();
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", () => togglePauseState());
+            }
+
+            if (speedBtn) {
+                speedBtn.addEventListener("click", () => {
+                    currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+                    const sp = speeds[currentSpeedIndex];
+                    if (speedLabel) speedLabel.textContent = sp.label;
+                    updateHudUI();
+                });
+            }
+
+            // Keyboard Spacebar Play/Pause
+            window.addEventListener("keydown", (e) => {
+                if (e.code === "Space" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+                    e.preventDefault();
+                    togglePauseState();
                 }
             });
 
-            // When user manually scrolls with wheel or touch, temporarily pause auto-scroll for 3.5s
-            function onUserScrollInteraction() {
+            // Pause on manual user scrolling, resume smoothly after 3.5 seconds
+            function handleUserManualScroll() {
                 isPaused = true;
                 currentScrollY = window.scrollY || window.pageYOffset || 0;
+                updateHudUI();
                 clearTimeout(userScrollTimeout);
-                userScrollTimeout = setTimeout(function () {
+                userScrollTimeout = setTimeout(() => {
                     currentScrollY = window.scrollY || window.pageYOffset || 0;
                     lastTimestamp = null;
                     isPaused = false;
+                    updateHudUI();
                 }, 3500);
             }
+            window.addEventListener("wheel", handleUserManualScroll, { passive: true });
+            window.addEventListener("touchstart", handleUserManualScroll, { passive: true });
 
-            window.addEventListener('wheel', onUserScrollInteraction, { passive: true });
-            window.addEventListener('touchstart', onUserScrollInteraction, { passive: true });
+            // =========================================================================
+            // 5. High-Precision V-Sync Loop with Physical Scan-Line Quantization
+            // =========================================================================
+            function m4AutoScrollLoop(timestamp) {
+                if (!lastTimestamp) lastTimestamp = timestamp;
 
-            // Start auto-scroll after initial 2s pause to showcase Hero header
-            setTimeout(function () {
+                // 1. Calculate raw delta-time with ceiling protection against tab backgrounding jumps
+                const rawDt = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
+                lastTimestamp = timestamp;
+
+                // 2. Exponential Moving Average (EMA) Low-Pass Filter:
+                // Absorbs microsecond timestamp fluctuations across 60Hz v-sync cycles on macOS
+                smoothedDt = smoothedDt * 0.8 + rawDt * 0.2;
+
+                if (!isPaused && !isAtBottom) {
+                    const currentSpeedPxPerSec = speeds[currentSpeedIndex].pxPerSec;
+                    currentScrollY += currentSpeedPxPerSec * smoothedDt;
+
+                    // Check if bottom reached
+                    if (currentScrollY >= cachedMaxScroll - 2) {
+                        currentScrollY = cachedMaxScroll;
+                        window.scrollTo(0, cachedMaxScroll);
+                        isAtBottom = true;
+
+                        // Pause 4.5 seconds at bottom for audience reading
+                        setTimeout(() => {
+                            // Smooth ease back to top
+                            document.documentElement.style.scrollBehavior = "smooth";
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+
+                            // Wait 2.2 seconds at top hero, then re-engage downward auto-scroll
+                            setTimeout(() => {
+                                document.documentElement.style.scrollBehavior = "auto";
+                                currentScrollY = 0;
+                                lastTimestamp = null;
+                                isAtBottom = false;
+                                updateCachedDimensions();
+                            }, 2200);
+                        }, 4500);
+                    } else {
+                        // 3. Apple M4 Liquid Retina Physical Scanline Grid Snapping:
+                        // On a 2560x1664 panel with DPR = 2, rounding to exact physical device pixels
+                        // (i.e. multiples of 1/DPR = 0.5px) guarantees zero subpixel aliasing vibration or text shimmer!
+                        const dpr = window.devicePixelRatio || 2;
+                        const scanlineSnappedY = Math.round(currentScrollY * dpr) / dpr;
+
+                        // Execute instant scanline-aligned scroll
+                        if ("scrollTo" in window) {
+                            try {
+                                window.scrollTo({ top: scanlineSnappedY, behavior: "instant" });
+                            } catch (_) {
+                                window.scrollTo(0, scanlineSnappedY);
+                            }
+                        } else {
+                            window.scrollTo(0, scanlineSnappedY);
+                        }
+
+                        // 4. Update UI elements without triggering layout thrashing
+                        if (scrollProgress && cachedMaxScroll > 0) {
+                            const pct = (scanlineSnappedY / cachedMaxScroll) * 100;
+                            scrollProgress.style.width = `${pct}%`;
+                        }
+
+                        if (scrollTopBtn) {
+                            if (scanlineSnappedY > 400) {
+                                scrollTopBtn.classList.add("visible");
+                            } else {
+                                scrollTopBtn.classList.remove("visible");
+                            }
+                        }
+                    }
+                }
+
+                requestAnimationFrame(m4AutoScrollLoop);
+            }
+
+            // Initial kickoff: 2s pause to showcase the Hero section, then begin smooth scroll
+            setTimeout(() => {
+                updateCachedDimensions();
                 currentScrollY = window.scrollY || window.pageYOffset || 0;
                 lastTimestamp = null;
-                requestAnimationFrame(autoScrollLoop);
+                updateHudUI();
+                requestAnimationFrame(m4AutoScrollLoop);
             }, 2000);
+
         })();
     </script>
-
 </body>
 
 </html>
